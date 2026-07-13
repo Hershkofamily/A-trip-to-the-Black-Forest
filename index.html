@@ -25,16 +25,12 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        html, body {
-            overflow-x: hidden;
-            width: 100%;
-            -webkit-overflow-scrolling: touch;
-        }
-
         body {
             font-family: 'Assistant', sans-serif;
             background-color: var(--soft-cream);
             color: var(--matte-black);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
             -webkit-font-smoothing: antialiased;
         }
 
@@ -43,7 +39,7 @@
             color: #fff;
         }
 
-        /* מסך פתיחה דרמטי ויוקרתי */
+        /* מסך פתיחה יוקרתי */
         header {
             height: 100vh;
             height: calc(var(--vh, 1vh) * 100);
@@ -67,7 +63,7 @@
             letter-spacing: 4px;
             margin-bottom: 15px;
             text-shadow: 0 4px 15px rgba(0,0,0,0.4);
-            animation: fadeInDown 1.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+            animation: fadeInDown 1.4s ease-out;
         }
 
         header p {
@@ -77,8 +73,7 @@
             color: #eaeaea;
             margin-bottom: 40px;
             max-width: 90%;
-            animation: fadeInUp 2s cubic-bezier(0.16, 1, 0.3, 1) both;
-            animation-delay: 0.3s;
+            animation: fadeInUp 1.6s ease-out;
         }
 
         .scroll-down {
@@ -99,7 +94,7 @@
             padding: 60px 20px;
         }
 
-        /* כותרות חלקים אקסקלוסיביות */
+        /* כותרות חלקים */
         .part-header {
             text-align: center;
             margin: 60px 0 40px 0;
@@ -135,7 +130,7 @@
             background: linear-gradient(90deg, transparent, var(--luxury-gold), transparent);
         }
 
-        /* כרטיסי ימים משודרגים */
+        /* כרטיסי ימים - גלויים כברירת מחדל לטובת מניעת באגים ב-iOS */
         .day-block {
             background: #ffffff;
             border-radius: 20px;
@@ -143,19 +138,7 @@
             box-shadow: var(--card-shadow);
             margin-bottom: 45px;
             border: 1px solid rgba(197, 160, 89, 0.15);
-            opacity: 0;
-            transform: translateY(40px) scale(0.99);
-            transition: opacity 0.8s cubic-bezier(0.215, 0.610, 0.355, 1), 
-                        transform 0.8s cubic-bezier(0.215, 0.610, 0.355, 1), 
-                        box-shadow 0.4s ease, 
-                        border-color 0.4s ease;
-            -webkit-transition: opacity 0.8s cubic-bezier(0.215, 0.610, 0.355, 1), 
-                                transform 0.8s cubic-bezier(0.215, 0.610, 0.355, 1);
-        }
-
-        .day-block.reveal {
-            opacity: 1;
-            transform: translateY(0) scale(1);
+            transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease, border-color 0.4s ease;
         }
 
         .day-block:hover {
@@ -164,7 +147,6 @@
             border-color: rgba(197, 160, 89, 0.4);
         }
 
-        /* תמונות פנורמיות */
         .day-hero-img {
             height: 240px;
             background-size: cover;
@@ -190,7 +172,6 @@
             z-index: 2;
         }
 
-        /* תגית זמני שבת יוקרתית */
         .shabbat-time-badge {
             display: inline-flex;
             align-items: center;
@@ -220,7 +201,6 @@
             letter-spacing: -0.3px;
         }
 
-        /* רשימת פעילויות */
         .item-list {
             list-style: none;
         }
@@ -271,7 +251,6 @@
             line-height: 1.65;
         }
 
-        /* כפתורי פעולה */
         .item-actions {
             display: flex;
             gap: 12px;
@@ -316,7 +295,6 @@
             border-color: var(--luxury-gold);
         }
 
-        /* תגיות */
         .tag {
             font-size: 0.75rem;
             padding: 3px 12px;
@@ -328,7 +306,6 @@
         .tag-optional { background-color: #e3edf7; color: #316299; }
         .tag-critical { background-color: #fce8e6; color: #b73232; }
 
-        /* תיבת אלזס */
         .luxury-accent-box {
             background: linear-gradient(135deg, #132d25, #081410);
             color: #fff;
@@ -342,7 +319,7 @@
         .luxury-accent-box strong { color: var(--luxury-gold); }
         .luxury-accent-box a { color: #fff; text-decoration: underline; margin-right: 5px; }
 
-        /* קארד מפה תואם אייפון */
+        /* קארד מפה מותאם מובייל */
         .map-container-card {
             background: #ffffff;
             border-radius: 20px;
@@ -350,15 +327,6 @@
             box-shadow: var(--card-shadow);
             border: 1px solid rgba(197, 160, 89, 0.15);
             margin-bottom: 50px;
-            opacity: 0;
-            transform: translateY(40px) scale(0.99);
-            transition: all 0.8s cubic-bezier(0.215, 0.610, 0.355, 1);
-            -webkit-transition: all 0.8s cubic-bezier(0.215, 0.610, 0.355, 1);
-        }
-
-        .map-container-card.reveal {
-            opacity: 1;
-            transform: translateY(0) scale(1);
         }
 
         .map-iframe-wrapper {
@@ -376,12 +344,11 @@
             top: 0;
             left: 0;
             width: 100% !important;
-            min-width: 100%;
             height: 100% !important;
             border: 0;
         }
 
-        /* מודאל ג'מיני פרימיום */
+        /* מודאל ג'מיני פרימיום - עוקף הגנות ספארי */
         .gemini-modal-overlay {
             position: fixed;
             top: 0;
@@ -392,18 +359,14 @@
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             z-index: 2000;
-            display: flex;
+            display: none; 
             justify-content: center;
             align-items: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.4s ease;
             padding: 20px;
         }
 
         .gemini-modal-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
+            display: flex;
         }
 
         .gemini-modal-card {
@@ -414,12 +377,7 @@
             border: 1px solid rgba(197, 160, 89, 0.3);
             box-shadow: 0 30px 70px rgba(0,0,0,0.25);
             overflow: hidden;
-            transform: translateY(20px);
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .gemini-modal-overlay.active .gemini-modal-card {
-            transform: translateY(0);
+            animation: fadeInUp 0.4s ease-out;
         }
 
         .gemini-modal-header {
@@ -468,7 +426,6 @@
             overflow-y: auto;
         }
 
-        /* כפתור זהב יוקרתי עם אפקט Shimmer */
         .btn-launch-gemini {
             position: relative;
             display: flex;
@@ -488,28 +445,11 @@
             transition: all 0.3s ease;
         }
 
-        .btn-launch-gemini::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 50%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(197, 160, 89, 0.25), transparent);
-            transform: skewX(-25deg);
-        }
-
-        .btn-launch-gemini:hover::before {
-            left: 150%;
-            transition: left 1s ease-in-out;
-        }
-
         .btn-launch-gemini:hover {
             background: var(--luxury-gold);
             color: #fff;
         }
 
-        /* הודעת טוסט */
         .toast-notification {
             position: fixed;
             bottom: 30px;
@@ -534,12 +474,12 @@
         }
 
         @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-30px); }
+            from { opacity: 0; transform: translateY(-25px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
+            from { opacity: 0; transform: translateY(25px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
@@ -607,7 +547,7 @@
                             <div class="item-title">נחיתה בציריך (Zürich)</div>
                             <div class="item-desc">נוחתים בשווייץ, אוספים את רכב המנהלים השכור ויוצאים בנסיעה מענגת לכיוון צפון.</div>
                             <div class="item-actions">
-                                <a href="https://www.google.com/maps/search/?api=1&query=Zurich+Airport" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
+                                <a href="https://maps.google.com/?q=Zurich+Airport" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
                                 <button onclick="askGemini('נחיתה בציריך (Zürich)')" class="btn-action btn-explain">✨ לא הבנתי</button>
                             </div>
                         </li>
@@ -615,7 +555,7 @@
                             <div class="item-title">מפלי הריין <span class="tag tag-optional">אופציונלי</span></div>
                             <div class="item-desc">עצירה במפלים המישוריים הגדולים והמרשימים ביותר באירופה. ביקור מותנה בקצב השחרור וההתארגנות בשדה התעופה.</div>
                             <div class="item-actions">
-                                <a href="https://www.google.com/maps/search/?api=1&query=Rhine+Falls" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
+                                <a href="https://maps.google.com/?q=Rhine+Falls" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
                                 <button onclick="askGemini('מפלי הריין')" class="btn-action btn-explain">✨ לא הבנתי</button>
                             </div>
                         </li>
@@ -623,7 +563,7 @@
                             <div class="item-title">הגעה לעיירת הנופש שלוכזה (Schluchsee)</div>
                             <div class="item-desc">צ'ק-אין בריזורט/דירת היוקרה שלכם מול האגם השלו, ולאחר מכן התארגנות וקניית מצרכים ראשוניים בסופרמרקט מקומי.</div>
                             <div class="item-actions">
-                                <a href="https://www.google.com/maps/search/?api=1&query=Schluchsee+Germany" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
+                                <a href="https://maps.google.com/?q=Schluchsee" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
                                 <button onclick="askGemini('עיירת הנופש שלוכזה (Schluchsee)')" class="btn-action btn-explain">✨ לא הבנתי</button>
                             </div>
                         </li>
@@ -643,7 +583,7 @@
                             <div class="item-title">מגלשות ההרים Hasenhorn <a href="https://www.blackforest-highlights.com/poi/detail/berggasthaus-hasenhorn-e4a378d844" target="_blank">אתר רשמי ↗</a></div>
                             <div class="item-desc">חוויית אדרנלין מטורפת. עולים ברכבל אל פסגת ההר ויורדים בגלישה מהירה ופנורמית בהתאמה אישית של מהירות הגלישה.</div>
                             <div class="item-actions">
-                                <a href="https://www.google.com/maps/search/?api=1&query=Hasenhorn+Rodelbahn+Todtnau" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
+                                <a href="https://maps.google.com/?q=Hasenhorn+Rodler+Todtnau" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
                                 <button onclick="askGemini('מגלשות ההרים Hasenhorn')" class="btn-action btn-explain">✨ לא הבנתי</button>
                             </div>
                         </li>
@@ -651,7 +591,7 @@
                             <div class="item-title">גשר החבלים Blackforestline <a href="https://blackforestline.de/en/" target="_blank">אתר רשמי ↗</a></div>
                             <div class="item-desc">הליכה מרגשת בגובה שמיים על גשר חבלים תלוי ענק, המציע נוף עוצר נשימה ותצפית ממעוף הציפור על כל הוואדי.</div>
                             <div class="item-actions">
-                                <a href="https://www.google.com/maps/search/?api=1&query=Blackforestline+Todtnau" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
+                                <a href="https://maps.google.com/?q=Blackforestline+Todtnau" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
                                 <button onclick="askGemini('גשר החבלים Blackforestline')" class="btn-action btn-explain">✨ לא הבנתי</button>
                             </div>
                         </li>
@@ -659,7 +599,7 @@
                             <div class="item-title">מפלי טודנאו (Todtnau Waterfalls)</div>
                             <div class="item-desc">טיול רגלי מעגלי, קליל ומרענן (כ-2.4 ק"מ) בלב היער בין המפלים השוצפים והיפים של האזור.</div>
                             <div class="item-actions">
-                                <a href="https://www.google.com/maps/search/?api=1&query=Todtnau+Waterfalls" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
+                                <a href="https://maps.google.com/?q=Todtnauer+Wasserfälle" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
                                 <button onclick="askGemini('מפלי טודנאו (Todtnau Waterfalls)')" class="btn-action btn-explain">✨ לא הבנתי</button>
                             </div>
                         </li>
@@ -679,7 +619,7 @@
                             <div class="item-title">אי הפרחים מיינאו (Mainau) <a href="https://www.europeanhistoricgardens.eu/en/mainau" target="_blank">אתר רשמי ↗</a></div>
                             <div class="item-desc">אצולה בלב אגם קונסטנץ. בילוי בגנים בוטניים מעוצבים עוצרי נשימה, חממת פרפרים טרופית ענקית ומדשאות רחבות ידיים.</div>
                             <div class="item-actions">
-                                <a href="https://www.google.com/maps/search/?api=1&query=Mainau+Island" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
+                                <a href="https://maps.google.com/?q=Mainau+Island" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
                                 <button onclick="askGemini('אי הפרחים מיינאו (Mainau)')" class="btn-action btn-explain">✨ לא הבנתי</button>
                             </div>
                         </li>
@@ -687,7 +627,7 @@
                             <div class="item-title">מתחם האאוטלט SEEMAXX <a href="https://seemaxx.de/en/home/" target="_blank">אתר רשמי ↗</a></div>
                             <div class="item-desc">חוויית קניות פרימיום בעיירה הסמוכה רדולפצל. מתחם מותגי אופנה והלבשה בינלאומיים במחירים מיוחדים.</div>
                             <div class="item-actions">
-                                <a href="https://www.google.com/maps/search/?api=1&query=seemaxx+Outlet+Center+Radolfzell" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
+                                <a href="https://maps.google.com/?q=seemaxx+Outlet+Center+Radolfzell" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
                                 <button onclick="askGemini('מתחם האאוטלט SEEMAXX')" class="btn-action btn-explain">✨ לא הבנתי</button>
                             </div>
                         </li>
@@ -707,7 +647,7 @@
                             <div class="item-title">שביל הכדורים (KugelWaldPfad) <a href="https://www.xn--6dbdabdlme8buq6edbk.com/kugelwaldpfad/" target="_blank">מידע ↗</a></div>
                             <div class="item-desc">מסלול יער חווייתי ומהמהנה במיוחד, שבו מגלגלים כדורי עץ לאורך מתקני עץ ומסלולי טבע ייחודיים המשתלבים בנוף היער.</div>
                             <div class="item-actions">
-                                <a href="https://www.google.com/maps/search/?api=1&query=Kugelwaldpfad+Birkendorf" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
+                                <a href="https://maps.google.com/?q=Kugelwaldpfad+Ühlingen-Birkendorf" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
                                 <button onclick="askGemini('שביל הכדורים (KugelWaldPfad)')" class="btn-action btn-explain">✨ לא הבנתי</button>
                             </div>
                         </li>
@@ -715,7 +655,7 @@
                             <div class="item-title">שטיין אם ריין (Stein am Rhein) <a href="https://www.myswitzerland.com/en/destinations/stein-am-rhein/" target="_blank">שוויץ רשמי ↗</a></div>
                             <div class="item-desc">עיירה שווייצרית ציורית עתיקה על גדות נהר הריין, המפורסמת במבנים המעוטרים בציורי קיר נדירים. נעצר לטיול קצר וארוחת צהריים.</div>
                             <div class="item-actions">
-                                <a href="https://www.google.com/maps/search/?api=1&query=Stein+am+Rhein+Switzerland" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
+                                <a href="https://maps.google.com/?q=Stein+am+Rhein" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
                                 <button onclick="askGemini('שטיין אם ריין (Stein am Rhein)')" class="btn-action btn-explain">✨ לא הבנתי</button>
                             </div>
                         </li>
@@ -723,7 +663,7 @@
                             <div class="item-title">שדה התעופה בציריך <span class="tag tag-critical">לו"ז קריטי</span></div>
                             <div class="item-desc">נוסעים ישירות לשדה התעופה בציריך כדי להוריד את הדר, הממריאה חזרה לישראל בטיסה של השעה 19:15.</div>
                             <div class="item-actions">
-                                <a href="https://www.google.com/maps/search/?api=1&query=Zurich+Airport" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
+                                <a href="https://maps.google.com/?q=Zurich+Airport" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
                                 <button onclick="askGemini('שדה התעופה בציריך')" class="btn-action btn-explain">✨ לא הבנתי</button>
                             </div>
                         </li>
@@ -743,7 +683,7 @@
                             <div class="item-title">פארק החיות Tatzmania</div>
                             <div class="item-desc">סיור חצי-יומי (עד השעה 15:00 בערך) בפארק חיות יוקרתי המשלב טורפים גדולים (אריות, טיגריסים, דובים) לצד מתקני שעשועים חווייתיים ומגלשות.</div>
                             <div class="item-actions">
-                                <a href="https://www.google.com/maps/search/?api=1&query=Tatzmania+Loffingen" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
+                                <a href="https://maps.google.com/?q=Tatzmania+Löffingen" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
                                 <button onclick="askGemini('פארק החיות Tatzmania')" class="btn-action btn-explain">✨ לא הבנתי</button>
                             </div>
                         </li>
@@ -751,13 +691,12 @@
                             <div class="item-title">חזרה והתארגנות בשלוכזה</div>
                             <div class="item-desc">חזרה מוקדמת למקום האירוח על מנת לנוח, להירגע ולהיערך בצורה מכובדת לקראת כניסת השבת.</div>
                             
-                            <!-- זמני שבת -->
                             <div class="shabbat-time-badge">
                                 🕯️ הדלקת נרות שבת (שלוכזה): <strong>20:03</strong>
                             </div>
 
                             <div class="item-actions" style="margin-top: 15px;">
-                                <a href="https://www.google.com/maps/search/?api=1&query=Schluchsee" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
+                                <a href="https://maps.google.com/?q=Schluchsee" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
                                 <button onclick="askGemini('חזרה והתארגנות בשלוכזה')" class="btn-action btn-explain">✨ לא הבנתי</button>
                             </div>
                         </li>
@@ -777,13 +716,12 @@
                             <div class="item-title">יום רגוע של שבת קודש</div>
                             <div class="item-desc">מנוחה מוחלטת ברוח היער. טיולים רגליים נינוחים ופסטורליים לאורך גדות האגם הכחול של שלוכזה וזמן איכות משפחתי.</div>
                             
-                            <!-- זמני שבת -->
                             <div class="shabbat-time-badge">
                                 ✨ יציאת שבת (שלוכזה): <strong>21:27</strong>
                             </div>
 
                             <div class="item-actions" style="margin-top: 15px;">
-                                <a href="https://www.google.com/maps/search/?api=1&query=Schluchsee+Lake" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
+                                <a href="https://maps.google.com/?q=Schluchsee+Lake" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
                                 <button onclick="askGemini('אגם שלוכזה ומנוחה בשבת')" class="btn-action btn-explain">✨ לא הבנתי</button>
                             </div>
                         </li>
@@ -797,13 +735,13 @@
                     <div class="day-badge">יום א׳ | 23.8</div>
                 </div>
                 <div class="day-content">
-                    <div class="day-title">על גג העולם: פסגת הר הפלדברג</div>
+                    <div class="day-title">האיזון המושלם: פסגת הר הפלדברג</div>
                     <ul class="item-list">
                         <li class="item-row">
                             <div class="item-title">הר הפלדברג (Feldberg) <a href="https://www.feldberg-erlebnis.de/en" target="_blank">אתר רשמי ↗</a></div>
                             <div class="item-desc">ההעפלה אל ההר הגבוה ביותר ביער השחור. עולים ברכבל החדיש אל הפסגה, מבקרים במגדל התצפית הפנורמי ובוחרים במסלול הליכה בטבע.</div>
                             <div class="item-actions">
-                                <a href="https://www.google.com/maps/search/?api=1&query=Feldberg+Black+Forest" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
+                                <a href="https://maps.google.com/?q=Feldberg+Black+Forest" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
                                 <button onclick="askGemini('הר הפלדברג (Feldberg)')" class="btn-action btn-explain">✨ לא הבנתי</button>
                             </div>
                         </li>
@@ -831,7 +769,7 @@
                             <div class="item-title">צ'ק-אאוט ונפרדים משלוכזה</div>
                             <div class="item-desc">עזיבת הדירה הדרומית ונסיעה חלקה לכיוון חבל אלזס בצרפת.</div>
                             <div class="item-actions">
-                                <a href="https://www.google.com/maps/search/?api=1&query=Schluchsee" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
+                                <a href="https://maps.google.com/?q=Schluchsee" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
                                 <button onclick="askGemini('צ\'ק-אאוט ונפרדים משלוכזה')" class="btn-action btn-explain">✨ לא הבנתי</button>
                             </div>
                         </li>
@@ -843,7 +781,7 @@
                                 • <strong>מוזיאון הרכבות Cité du Train:</strong> <a href="https://www.citedutrain.com/" target="_blank">אתר רשמי ↗</a> - תצוגת רכבות היסטוריות וקרונות מלכותיים.
                             </div>
                             <div class="item-actions">
-                                <a href="https://www.google.com/maps/search/?api=1&query=Mulhouse+France" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
+                                <a href="https://maps.google.com/?q=Mulhouse+France" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
                                 <button onclick="askGemini('מוזיאונים בעיר מולהאוס Mulhouse')" class="btn-action btn-explain">✨ לא הבנתי</button>
                             </div>
                         </li>
@@ -851,7 +789,7 @@
                             <div class="item-title">הגעה לבסיס השני ברינגסהיים (Ringsheim)</div>
                             <div class="item-desc">התמקמות במקום האירוח החדש שלכם, הממוקם דקות ספורות מפארק אירופה.</div>
                             <div class="item-actions">
-                                <a href="https://www.google.com/maps/search/?api=1&query=Ringsheim+Germany" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
+                                <a href="https://maps.google.com/?q=Ringsheim" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
                                 <button onclick="askGemini('העיירה רינגסהיים (Ringsheim)')" class="btn-action btn-explain">✨ לא הבנתי</button>
                             </div>
                         </li>
@@ -865,13 +803,13 @@
                     <div class="day-badge">יום ג׳ | 25.8</div>
                 </div>
                 <div class="day-content">
-                    <div class="day-title">פארק אירופה: פסגת השעשועים העולמית</div>
+                    <div class="day-title">פארק אירופה: ממלכת השעשועים העולמית</div>
                     <ul class="item-list">
                         <li class="item-row">
                             <div class="item-title">פארק אירופה (Europa-Park) <a href="https://www.europa-park.co.il/" target="_blank">כרטיסים ↗</a></div>
                             <div class="item-desc">יום שלם ומטורף בפארק השעשועים המוביל והטוב בעולם. מתחמים מעוצבים לפי מדינות, רכבות הרים שוברות שיאים וחוויה בלתי נשכחת לכל גיל.</div>
                             <div class="item-actions">
-                                <a href="https://www.google.com/maps/search/?api=1&query=Europa-Park+Rust" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
+                                <a href="https://maps.google.com/?q=Europa-Park" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
                                 <button onclick="askGemini('פארק אירופה (Europa-Park)')" class="btn-action btn-explain">✨ לא הבנתי</button>
                             </div>
                         </li>
@@ -891,7 +829,7 @@
                             <div class="item-title">נסיעה לכיוון שווייץ</div>
                             <div class="item-desc">קמים בבוקר בנחת, מתארגנים ויוצאים בנסיעה חזרה לכיוון שדה התעופה בציריך.</div>
                             <div class="item-actions">
-                                <a href="https://www.google.com/maps/search/?api=1&query=Zurich+Airport" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
+                                <a href="https://maps.google.com/?q=Zurich+Airport" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
                                 <button onclick="askGemini('נסיעה חזרה מגרמניה לציריך')" class="btn-action btn-explain">✨ לא הבנתי</button>
                             </div>
                         </li>
@@ -899,7 +837,7 @@
                             <div class="item-title">החזרת הרכב בשדה התעופה <span class="tag tag-critical">12:00 בצהריים</span></div>
                             <div class="item-desc">הגעה מתוזמנת למתחם חברות ההשכרה בשדה התעופה בציריך והזדכות על הרכב סביב השעה 12:00.</div>
                             <div class="item-actions">
-                                <a href="https://www.google.com/maps/search/?api=1&query=Zurich+Airport+Car+Return" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
+                                <a href="https://maps.google.com/?q=Zurich+Airport+Car+Rental" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
                                 <button onclick="askGemini('החזרת רכב שכור בשדה התעופה בציריך')" class="btn-action btn-explain">✨ לא הבנתי</button>
                             </div>
                         </li>
@@ -907,7 +845,7 @@
                             <div class="item-title">טיסה חזרה לישראל</div>
                             <div class="item-desc">מעבירים את הזמן בדיוטי פרי היוקרתי של שדה התעופה לקראת המראת הטיסה שלכם חזרה הביתה ב-19:15.</div>
                             <div class="item-actions">
-                                <a href="https://www.google.com/maps/search/?api=1&query=Zurich+Airport+Departures" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
+                                <a href="https://maps.google.com/?q=Zurich+Airport" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
                                 <button onclick="askGemini('טיסה חזרה מציריך לישראל')" class="btn-action btn-explain">✨ לא הבנתי</button>
                             </div>
                         </li>
@@ -916,7 +854,7 @@
             </div>
         </div>
 
-        <!-- חלק: מפת המסלול האקסקלוסיבית -->
+        <!-- חלק: מפת המסלול -->
         <div class="part-header">
             <span>סקירה גאוגרפית</span>
             <h2>מפת המסלול האקסקלוסיבית</h2>
@@ -925,14 +863,14 @@
         <div class="map-container-card">
             <div class="map-iframe-wrapper">
                 <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d713180.198946761!2d7.604907954101562!3d47.8118314151322!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4790e1112b36b5af%3A0xa123456789abcdef!2sBlack+Forest!5e0!3m2!1she!2sil!4v1710000000000!5m2!1she!2sil" 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d171122.3846617343!2d8.049444!3d48.0125!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4790e3cd14051059%3A0x31b7ec41e3a13723!2sBlack%20Forest!5e0!3m2!1sen!2sil!4v1710000000000!5m2!1sen!2sil" 
                     allowfullscreen="" 
                     loading="lazy" 
                     referrerpolicy="no-referrer-when-downgrade">
                 </iframe>
             </div>
             <div style="margin-top: 25px; text-align: center;">
-                <a href="https://maps.app.goo.gl/jaV4yGUk94r8xFV57?g_st=ac" target="_blank" class="btn-launch-gemini" style="text-decoration: none; display: inline-flex; width: auto; max-width: 100%; padding: 14px 40px;">
+                <a href="https://maps.google.com/?q=Black+Forest+Germany" target="_blank" class="btn-launch-gemini" style="text-decoration: none; display: inline-flex; width: auto; max-width: 100%; padding: 14px 40px;">
                     🗺️ פתיחת רשימת המיקומים המלאה ב-Google Maps
                 </a>
             </div>
@@ -957,7 +895,6 @@
         </div>
     </div>
 
-    <!-- התראת טוסט -->
     <div id="toastNotification" class="toast-notification">
         ✨ הפרומפט הועתק! כעת רק הדביקו אותו (Ctrl+V) בג'מיני
     </div>
@@ -975,40 +912,18 @@
         window.addEventListener('resize', resetVH);
         window.addEventListener('DOMContentLoaded', resetVH);
 
-        document.addEventListener("DOMContentLoaded", function() {
-            const elementsToReveal = document.querySelectorAll('.day-block, .map-container-card');
-            const observerOptions = {
-                root: null,
-                threshold: 0.02,
-                rootMargin: "0px 0px -20px 0px"
-            };
-
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('reveal');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, observerOptions);
-
-            elementsToReveal.forEach(el => {
-                observer.observe(el);
-            });
-        });
-
         let currentPrompt = "";
 
         function askGemini(destinationName) {
             currentPrompt = `אנחנו יוצאים לטיול משפחתי יוקרתי ומתוכנן היטב באזור היער השחור (גרמניה, שווייץ וצרפת) בקיץ 2026. \nאנא הסבר לי בצורה מעניינת, מפורטת ופרקטית על היעד הבא מתוך התוכנית שלנו: "${destinationName}". \nמה עושים שם בדיוק? למה לצפות? אילו דגשים חשוב להכיר ומה הופך את המקום לחוויה מומלצת?`;
             
             document.getElementById('promptPreview').innerText = currentPrompt;
-            document.getElementById('geminiModal').classList.add('active');
+            document.getElementById('geminiModal').style.display = 'flex';
         }
 
         function closeModal(event) {
             if (!event || event.target === document.getElementById('geminiModal') || event.type === 'click') {
-                document.getElementById('geminiModal').classList.remove('active');
+                document.getElementById('geminiModal').style.display = 'none';
             }
         }
 
@@ -1016,7 +931,6 @@
             let textArea = document.createElement("textarea");
             textArea.value = text;
             
-            // תוספת הגנות קריטיות לאייפון (iOS ספארי)
             textArea.style.position = "fixed";
             textArea.style.top = "0";
             textArea.style.left = "0";
@@ -1030,7 +944,6 @@
             
             document.body.appendChild(textArea);
             
-            // בחירת טקסט מאובטחת לאייפון
             textArea.focus();
             textArea.select();
             textArea.setSelectionRange(0, 99999);
