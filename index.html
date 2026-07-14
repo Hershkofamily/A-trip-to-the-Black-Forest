@@ -423,6 +423,56 @@
         .luxury-accent-box strong { color: var(--luxury-gold); }
         .luxury-accent-box a { color: #fff; text-decoration: underline; margin-right: 5px; }
 
+        /* מסגרת זמני שבת יוקרתית */
+        .shabbat-times {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: linear-gradient(135deg, rgba(197, 160, 89, 0.08), rgba(197, 160, 89, 0.02));
+            border: 1px solid rgba(197, 160, 89, 0.35);
+            border-right: 4px solid var(--luxury-gold);
+            border-radius: 12px;
+            padding: 14px 18px;
+            margin: 20px 0 25px;
+            box-shadow: 0 4px 15px rgba(197, 160, 89, 0.08);
+        }
+
+        .shabbat-times-icon {
+            font-size: 1.5rem;
+            filter: drop-shadow(0 2px 4px rgba(197, 160, 89, 0.25));
+            flex-shrink: 0;
+        }
+
+        .shabbat-times-body {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            flex: 1;
+        }
+
+        .shabbat-times-label {
+            font-family: 'Cinzel', serif;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--luxury-gold);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .shabbat-times-value {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--dark-emerald);
+            letter-spacing: -0.2px;
+        }
+
+        .shabbat-times-note {
+            font-size: 0.75rem;
+            color: var(--premium-gray);
+            font-weight: 400;
+            margin-top: 2px;
+        }
+
         .map-container-card {
             background: #ffffff;
             border-radius: 20px;
@@ -753,10 +803,10 @@
                             </div>
                         </li>
                         <li class="item-row">
-                            <div class="item-title">הגעה לעיירת הנופש שלוכזה (Schluchsee)</div>
-                            <div class="item-desc">צ'ק-אין בריזורט/דירת היוקרה שלכם מול האגם השלו, ולאחר מכן התארגנות וקניית מצרכים ראשוניים בסופרמרקט מקומי.</div>
+                            <div class="item-title">הגעה לדירה בשלוכזה • Lindenstraße 9</div>
+                            <div class="item-desc">צ'ק-אין בדירת היוקרה שלכם ברחוב Lindenstraße 9, שלוכזה, מול האגם השלו. לאחר מכן התארגנות וקניית מצרכים ראשוניים בסופרמרקט המקומי.</div>
                             <div class="item-actions">
-                                <a href="https://www.google.com/maps/search/?api=1&query=Schluchsee+Germany" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
+                                <a href="https://www.google.com/maps/search/?api=1&query=Lindenstra%C3%9Fe+9+Schluchsee" target="_blank" class="btn-action btn-nav">📍 ניווט לדירה</a>
                                 <button onclick="askGemini('עיירת הנופש שלוכזה (Schluchsee)')" class="btn-action btn-explain">✨ לא הבנתי</button>
                                 <button id="btn-info-d1-3" onclick="toggleDrawer('d1-3')" class="btn-action btn-explain">ℹ️ מידע נוסף</button>
                             </div>
@@ -973,6 +1023,14 @@
                 </div>
                 <div class="day-content">
                     <div class="day-title">ממלכת בעלי החיים והכנות לשבת</div>
+                    <div class="shabbat-times">
+                        <span class="shabbat-times-icon">🕯️</span>
+                        <div class="shabbat-times-body">
+                            <span class="shabbat-times-label">כניסת שבת • שלוכזה</span>
+                            <span class="shabbat-times-value">20:05</span>
+                            <span class="shabbat-times-note">שקיעה מקומית 20:23 • הדלקת נרות ~18 דק' לפני</span>
+                        </div>
+                    </div>
                     <ul class="item-list">
                         <li class="item-row">
                             <div class="item-title">פארק החיות Tatzmania</div>
@@ -1023,6 +1081,14 @@
                 </div>
                 <div class="day-content">
                     <div class="day-title">שלווה אלוהית ומנוחה בשלוכזה</div>
+                    <div class="shabbat-times">
+                        <span class="shabbat-times-icon">✨</span>
+                        <div class="shabbat-times-body">
+                            <span class="shabbat-times-label">צאת שבת • שלוכזה</span>
+                            <span class="shabbat-times-value">21:22</span>
+                            <span class="shabbat-times-note">צאת הכוכבים לפי ר' תם • כ-60 דק' לאחר השקיעה</span>
+                        </div>
+                    </div>
                     <ul class="item-list">
                         <li class="item-row">
                             <div class="item-title">יום רגוע של שבת קודש</div>
@@ -1137,10 +1203,10 @@
                             </div>
                         </li>
                         <li class="item-row">
-                            <div class="item-title">הגעה לבסיס השני ברינגסהיים (Ringsheim)</div>
-                            <div class="item-desc">התמקמות במקום האירוח החדש שלכם, הממוקם דקות ספורות מפארק אירופה.</div>
+                            <div class="item-title">הגעה לדירה ברינגסהיים • Hauptstraße 22</div>
+                            <div class="item-desc">התמקמות בדירת האירוח החדשה שלכם ברחוב Hauptstraße 22, רינגסהיים - דקות ספורות מפארק אירופה.</div>
                             <div class="item-actions">
-                                <a href="https://www.google.com/maps/search/?api=1&query=Ringsheim+Germany" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
+                                <a href="https://www.google.com/maps/search/?api=1&query=Hauptstra%C3%9Fe+22+Ringsheim" target="_blank" class="btn-action btn-nav">📍 ניווט לדירה</a>
                                 <button onclick="askGemini('העיירה רינגסהיים (Ringsheim)')" class="btn-action btn-explain">✨ לא הבנתי</button>
                                 <button id="btn-info-d8-3" onclick="toggleDrawer('d8-3')" class="btn-action btn-explain">ℹ️ מידע נוסף</button>
                             </div>
