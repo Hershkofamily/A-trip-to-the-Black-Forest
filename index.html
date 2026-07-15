@@ -16,6 +16,57 @@
             --premium-gray: #7e8781;
             --card-shadow: 0 15px 35px rgba(15, 36, 29, 0.05);
             --hover-shadow: 0 30px 60px rgba(15, 36, 29, 0.12);
+
+            /* משתני ערכה - מצב בהיר */
+            --bg: #faf7f2;
+            --surface: #ffffff;
+            --text-primary: #111111;
+            --text-secondary: #555555;
+            --text-muted: #666666;
+            --heading: #0f241d;
+            --border-subtle: rgba(197, 160, 89, 0.15);
+            --border-divider: #f0f4f1;
+            --border-dashed: #e9efe0;
+            --btn-nav-bg: rgba(15, 36, 29, 0.06);
+            --btn-nav-color: #0f241d;
+            --btn-nav-border: rgba(15, 36, 29, 0.2);
+            --drawer-bg: rgba(197, 160, 89, 0.04);
+            --drawer-border: rgba(197, 160, 89, 0.15);
+            --drawer-text: #444;
+            --prompt-box-bg: #faf7f2;
+            --shabbat-value: #0f241d;
+            --tag-optional-bg: #e3edf7;
+            --tag-optional-color: #316299;
+            --tag-critical-bg: #fce8e6;
+            --tag-critical-color: #b73232;
+            --map-shadow: 0 10px 30px rgba(0,0,0,0.06);
+        }
+
+        [data-theme="dark"] {
+            --bg: #0b1512;
+            --surface: #16221e;
+            --text-primary: #ecebe6;
+            --text-secondary: #b8bbb6;
+            --text-muted: #a4a8a3;
+            --heading: #e5c78f;
+            --border-subtle: rgba(197, 160, 89, 0.22);
+            --border-divider: rgba(197, 160, 89, 0.12);
+            --border-dashed: rgba(197, 160, 89, 0.18);
+            --btn-nav-bg: rgba(197, 160, 89, 0.08);
+            --btn-nav-color: #e5c78f;
+            --btn-nav-border: rgba(197, 160, 89, 0.4);
+            --drawer-bg: rgba(197, 160, 89, 0.06);
+            --drawer-border: rgba(197, 160, 89, 0.22);
+            --drawer-text: #c8ccc7;
+            --prompt-box-bg: #0b1512;
+            --shabbat-value: #e5c78f;
+            --tag-optional-bg: rgba(80, 140, 200, 0.15);
+            --tag-optional-color: #8fb8e5;
+            --tag-critical-bg: rgba(220, 90, 90, 0.15);
+            --tag-critical-color: #e5928f;
+            --card-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+            --hover-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+            --map-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
         }
 
         * {
@@ -35,11 +86,12 @@
 
         body {
             font-family: 'Assistant', sans-serif;
-            background-color: var(--soft-cream);
-            color: var(--matte-black);
+            background-color: var(--bg);
+            color: var(--text-primary);
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
             padding-top: 70px;
+            transition: background-color 0.5s ease, color 0.5s ease;
         }
 
         /* תפריט ניווט דביק ויוקרתי */
@@ -164,10 +216,11 @@
 
         .part-header h2 {
             font-size: 2.2rem;
-            color: var(--dark-emerald);
+            color: var(--heading);
             font-weight: 700;
             display: inline-block;
             padding-bottom: 15px;
+            transition: color 0.5s ease;
         }
 
         .part-header h2::after {
@@ -182,18 +235,19 @@
         }
 
         .day-block {
-            background: #ffffff;
+            background: var(--surface);
             border-radius: 20px;
             overflow: hidden;
             box-shadow: var(--card-shadow);
             margin-bottom: 45px;
-            border: 1px solid rgba(197, 160, 89, 0.15);
+            border: 1px solid var(--border-subtle);
             opacity: 0;
             transform: translateY(50px) scale(0.98);
-            transition: opacity 1s cubic-bezier(0.215, 0.610, 0.355, 1), 
-                        transform 1s cubic-bezier(0.215, 0.610, 0.355, 1), 
-                        box-shadow 0.5s ease, 
-                        border-color 0.5s ease;
+            transition: opacity 1s cubic-bezier(0.215, 0.610, 0.355, 1),
+                        transform 1s cubic-bezier(0.215, 0.610, 0.355, 1),
+                        box-shadow 0.5s ease,
+                        border-color 0.5s ease,
+                        background-color 0.5s ease;
             scroll-margin-top: 100px;
         }
 
@@ -250,12 +304,13 @@
 
         .day-title {
             font-size: 1.5rem;
-            color: var(--dark-emerald);
+            color: var(--heading);
             margin-bottom: 25px;
             font-weight: 700;
-            border-bottom: 1px solid #f0f4f1;
+            border-bottom: 1px solid var(--border-divider);
             padding-bottom: 12px;
             letter-spacing: -0.3px;
+            transition: color 0.5s ease, border-color 0.5s ease;
         }
 
         .item-list {
@@ -265,7 +320,7 @@
         .item-row {
             margin-bottom: 25px;
             padding-bottom: 20px;
-            border-bottom: 1px dashed #e9efe0;
+            border-bottom: 1px dashed var(--border-dashed);
             transition: all 0.3s ease;
         }
 
@@ -277,7 +332,7 @@
 
         .item-title {
             font-size: 1.15rem;
-            color: var(--matte-black);
+            color: var(--text-primary);
             font-weight: 600;
             margin-bottom: 8px;
             display: flex;
@@ -285,6 +340,7 @@
             justify-content: space-between;
             flex-wrap: wrap;
             gap: 10px;
+            transition: color 0.5s ease;
         }
 
         .item-title a {
@@ -306,9 +362,10 @@
         }
 
         .item-desc {
-            color: #555555;
+            color: var(--text-secondary);
             font-size: 1rem;
             line-height: 1.65;
+            transition: color 0.5s ease;
         }
 
         .item-actions {
@@ -335,17 +392,9 @@
         }
 
         .btn-nav {
-            color: var(--dark-emerald);
-            background-color: rgba(15, 36, 29, 0.06);
-            border-color: rgba(15, 36, 29, 0.2);
-        }
-
-        .btn-nav:hover {
-            background-color: var(--dark-emerald);
-            color: #fff;
-            border-color: var(--dark-emerald);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(15, 36, 29, 0.15);
+            color: var(--btn-nav-color);
+            background-color: var(--btn-nav-bg);
+            border-color: var(--btn-nav-border);
         }
 
         .btn-explain {
@@ -354,20 +403,32 @@
             border-color: rgba(197, 160, 89, 0.35);
         }
 
-        .btn-explain:hover {
-            background-color: var(--luxury-gold);
-            color: #fff;
-            border-color: var(--luxury-gold);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(197, 160, 89, 0.2);
+        /* אפקטי hover מוחלים רק במכשירים שתומכים בהובר אמיתי (עכבר),
+           למניעת "הישארות" של מצב הובר במסכי מגע לאחר לחיצה */
+        @media (hover: hover) and (pointer: fine) {
+            .btn-nav:hover {
+                background-color: var(--dark-emerald);
+                color: #fff;
+                border-color: var(--dark-emerald);
+                transform: translateY(-3px);
+                box-shadow: 0 5px 15px rgba(15, 36, 29, 0.15);
+            }
+
+            .btn-explain:hover {
+                background-color: var(--luxury-gold);
+                color: #fff;
+                border-color: var(--luxury-gold);
+                transform: translateY(-3px);
+                box-shadow: 0 5px 15px rgba(197, 160, 89, 0.2);
+            }
         }
 
         /* סגנון מגירת המידע הנוסף האקסקלוסיבית */
         .info-drawer {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), padding 0.4s ease;
-            background: rgba(197, 160, 89, 0.04);
+            transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), padding 0.4s ease, background-color 0.5s ease;
+            background: var(--drawer-bg);
             border-radius: 12px;
             margin-top: 0;
             padding: 0 20px;
@@ -377,18 +438,20 @@
             max-height: 600px;
             padding: 20px;
             margin-top: 15px;
-            border: 1px solid rgba(197, 160, 89, 0.15);
+            border: 1px solid var(--drawer-border);
         }
 
         .drawer-inner p {
             font-size: 0.95rem;
-            color: #444;
+            color: var(--drawer-text);
             margin-bottom: 10px;
             line-height: 1.6;
+            transition: color 0.5s ease;
         }
 
         .drawer-inner p strong {
-            color: var(--dark-emerald);
+            color: var(--heading);
+            transition: color 0.5s ease;
         }
 
         .drawer-links {
@@ -406,8 +469,8 @@
             display: inline-block;
         }
 
-        .tag-optional { background-color: #e3edf7; color: #316299; }
-        .tag-critical { background-color: #fce8e6; color: #b73232; }
+        .tag-optional { background-color: var(--tag-optional-bg); color: var(--tag-optional-color); }
+        .tag-critical { background-color: var(--tag-critical-bg); color: var(--tag-critical-color); }
 
         .luxury-accent-box {
             background: linear-gradient(135deg, #132d25, #081410);
@@ -462,8 +525,9 @@
         .shabbat-times-value {
             font-size: 1.05rem;
             font-weight: 700;
-            color: var(--dark-emerald);
+            color: var(--shabbat-value);
             letter-spacing: -0.2px;
+            transition: color 0.5s ease;
         }
 
         .shabbat-times-note {
@@ -474,15 +538,19 @@
         }
 
         .map-container-card {
-            background: #ffffff;
+            background: var(--surface);
             border-radius: 20px;
             padding: 30px;
             box-shadow: var(--card-shadow);
-            border: 1px solid rgba(197, 160, 89, 0.15);
+            border: 1px solid var(--border-subtle);
             margin-bottom: 50px;
             opacity: 0;
             transform: translateY(50px) scale(0.98);
-            transition: all 1s cubic-bezier(0.215, 0.610, 0.355, 1);
+            transition: opacity 1s cubic-bezier(0.215, 0.610, 0.355, 1),
+                        transform 1s cubic-bezier(0.215, 0.610, 0.355, 1),
+                        background-color 0.5s ease,
+                        border-color 0.5s ease,
+                        box-shadow 0.5s ease;
             scroll-margin-top: 100px;
         }
 
@@ -495,9 +563,9 @@
             position: relative;
             border-radius: 14px;
             overflow: hidden;
-            border: 1px solid rgba(197, 160, 89, 0.2);
+            border: 1px solid var(--border-subtle);
             height: 450px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+            box-shadow: var(--map-shadow);
         }
 
         .map-iframe-wrapper iframe {
@@ -534,7 +602,7 @@
         }
 
         .gemini-modal-card {
-            background: #ffffff;
+            background: var(--surface);
             border-radius: 24px;
             max-width: 580px;
             width: 100%;
@@ -542,7 +610,7 @@
             box-shadow: 0 30px 70px rgba(0,0,0,0.25);
             overflow: hidden;
             transform: translateY(30px) scale(0.95);
-            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.5s ease;
         }
 
         .gemini-modal-overlay.active .gemini-modal-card {
@@ -588,18 +656,18 @@
 
         .gemini-modal-body p {
             font-size: 1rem;
-            color: #666;
+            color: var(--text-muted);
             margin-bottom: 18px;
         }
 
         .prompt-preview-box {
-            background: var(--soft-cream);
-            border: 1px solid rgba(197, 160, 89, 0.2);
+            background: var(--prompt-box-bg);
+            border: 1px solid var(--border-subtle);
             padding: 18px;
             border-radius: 12px;
             font-size: 0.95rem;
             line-height: 1.6;
-            color: var(--matte-black);
+            color: var(--text-primary);
             margin-bottom: 25px;
             max-height: 180px;
             overflow-y: auto;
@@ -675,6 +743,102 @@
         .toast-notification.active {
             transform: translateX(-50%) translateY(0);
             opacity: 1;
+        }
+
+        /* כפתורים צפים - מצב כהה וחזרה למעלה */
+        .floating-controls {
+            position: fixed;
+            bottom: 28px;
+            left: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 900;
+        }
+
+        .floating-btn {
+            position: relative;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--dark-emerald), #081410);
+            color: var(--luxury-gold);
+            border: 1px solid rgba(197, 160, 89, 0.55);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.15rem;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(15, 36, 29, 0.3);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                        background 0.4s ease,
+                        color 0.4s ease,
+                        box-shadow 0.4s ease,
+                        opacity 0.4s ease;
+            padding: 0;
+            font-family: inherit;
+        }
+
+        .floating-btn:hover {
+            background: var(--luxury-gold);
+            color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 14px 30px rgba(197, 160, 89, 0.4);
+        }
+
+        [data-theme="dark"] .floating-btn {
+            background: linear-gradient(135deg, #1e3128, #0d1815);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.55);
+        }
+
+        [data-theme="dark"] .floating-btn:hover {
+            background: var(--luxury-gold);
+            color: var(--dark-emerald);
+        }
+
+        .scroll-top-btn {
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(20px);
+        }
+
+        .scroll-top-btn.visible {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+
+        .scroll-top-btn.visible:hover {
+            transform: translateY(-3px);
+        }
+
+        .theme-toggle .icon-sun,
+        .theme-toggle .icon-moon {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-toggle .icon-sun { opacity: 0; transform: rotate(-90deg) scale(0.6); }
+        .theme-toggle .icon-moon { opacity: 1; transform: rotate(0) scale(1); }
+
+        [data-theme="dark"] .theme-toggle .icon-sun { opacity: 1; transform: rotate(0) scale(1); }
+        [data-theme="dark"] .theme-toggle .icon-moon { opacity: 0; transform: rotate(90deg) scale(0.6); }
+
+        @media (max-width: 480px) {
+            .floating-controls {
+                bottom: 18px;
+                left: 15px;
+                gap: 10px;
+            }
+            .floating-btn {
+                width: 44px;
+                height: 44px;
+                font-size: 1.05rem;
+            }
         }
 
         @keyframes fadeInDown {
@@ -1369,6 +1533,18 @@
         ✨ הפרומפט הועתק! כעת רק הדביקו אותו (Ctrl+V) בג'מיני
     </div>
 
+    <div class="floating-controls">
+        <button id="themeToggle" class="floating-btn theme-toggle" onclick="toggleTheme()" aria-label="החלף מצב תצוגה" title="החלף מצב תצוגה">
+            <span class="icon-moon">🌙</span>
+            <span class="icon-sun">☀️</span>
+        </button>
+        <button id="scrollTopBtn" class="floating-btn scroll-top-btn" onclick="scrollToTop()" aria-label="חזרה למעלה" title="חזרה למעלה">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="18 15 12 9 6 15"></polyline>
+            </svg>
+        </button>
+    </div>
+
     <footer>
         <p>THE BLACK FOREST LUXURY ITINERARY • SUMMER 2026</p>
         <div>נבנה במיוחד עבור חופשה משפחתית בלתי נשכחת</div>
@@ -1382,11 +1558,38 @@
         window.addEventListener('resize', resetVH);
         window.addEventListener('DOMContentLoaded', resetVH);
 
+        // מצב כהה - החלת ההעדפה השמורה מוקדם כדי למנוע הבזק לבן
+        (function() {
+            try {
+                const saved = localStorage.getItem('bf-theme');
+                if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                }
+            } catch (e) {}
+        })();
+
+        function toggleTheme() {
+            const html = document.documentElement;
+            const isDark = html.getAttribute('data-theme') === 'dark';
+            if (isDark) {
+                html.removeAttribute('data-theme');
+                try { localStorage.setItem('bf-theme', 'light'); } catch (e) {}
+            } else {
+                html.setAttribute('data-theme', 'dark');
+                try { localStorage.setItem('bf-theme', 'dark'); } catch (e) {}
+            }
+        }
+
+        // גלילה מהודרת חזרה לתחילת העמוד
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
         // הנפשת פתיחת וסגירת מגירות המידע הנוסף
         function toggleDrawer(id) {
             const drawer = document.getElementById('drawer-' + id);
             const btn = document.getElementById('btn-info-' + id);
-            
+
             if (drawer.classList.contains('open')) {
                 drawer.classList.remove('open');
                 btn.innerHTML = 'ℹ️ מידע נוסף';
@@ -1394,6 +1597,8 @@
                 drawer.classList.add('open');
                 btn.innerHTML = '🔼 סגור מידע';
             }
+            // מונע הישארות של מצב hover/focus על הכפתור לאחר לחיצה (בעיקר במגע)
+            btn.blur();
         }
 
         document.addEventListener("DOMContentLoaded", function() {
@@ -1419,6 +1624,7 @@
 
             const sections = document.querySelectorAll('.day-block, .map-container-card');
             const navLinks = document.querySelectorAll('.nav-link');
+            const scrollTopBtn = document.getElementById('scrollTopBtn');
 
             window.addEventListener('scroll', () => {
                 let current = '';
@@ -1431,10 +1637,20 @@
 
                 navLinks.forEach(link => {
                     link.classList.remove('active');
-                    if (link.getAttribute('href').includes(current) && current !== '') {
+                    // התאמה מדויקת (למנוע הדגשה כפולה של day1 ו-day10 וכו')
+                    if (current !== '' && link.getAttribute('href') === '#' + current) {
                         link.classList.add('active');
                     }
                 });
+
+                // חשיפת כפתור החזרה למעלה לאחר גלילה של יותר מ-400 פיקסלים
+                if (scrollTopBtn) {
+                    if (window.pageYOffset > 400) {
+                        scrollTopBtn.classList.add('visible');
+                    } else {
+                        scrollTopBtn.classList.remove('visible');
+                    }
+                }
             });
         });
 
