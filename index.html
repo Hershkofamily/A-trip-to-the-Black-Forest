@@ -375,51 +375,107 @@
             flex-wrap: wrap;
         }
 
+        /* כפתורי פעולה - עיצוב pill יוקרתי בהיררכיית שלושה מפלסים */
         .btn-action {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 7px;
+            font-family: inherit;
             font-size: 0.8rem;
             font-weight: 700;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.2px;
             text-decoration: none;
-            padding: 7px 16px;
-            border-radius: 8px;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            padding: 8px 18px;
+            border-radius: 999px;
             cursor: pointer;
-            border: 1px solid rgba(197, 160, 89, 0.25);
+            border: 1px solid transparent;
             background: transparent;
+            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                        background 0.35s ease,
+                        color 0.35s ease,
+                        border-color 0.35s ease,
+                        box-shadow 0.35s ease,
+                        opacity 0.35s ease;
         }
 
+        /* מפלס 1: ניווט - הכפתור המוביל, מהודר וכהה */
         .btn-nav {
-            color: var(--btn-nav-color);
-            background-color: var(--btn-nav-bg);
-            border-color: var(--btn-nav-border);
+            color: var(--luxury-gold);
+            background: linear-gradient(135deg, var(--dark-emerald), #071410);
+            border-color: rgba(197, 160, 89, 0.5);
+            box-shadow: 0 4px 12px rgba(15, 36, 29, 0.18),
+                        inset 0 0 0 1px rgba(197, 160, 89, 0.06);
         }
 
+        [data-theme="dark"] .btn-nav {
+            background: linear-gradient(135deg, #14312a, #08170f);
+            border-color: rgba(229, 199, 143, 0.55);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45),
+                        inset 0 0 0 1px rgba(229, 199, 143, 0.12);
+        }
+
+        /* מפלס 2: לא הבנתי (Gemini) - כפתור זהב מרומז */
         .btn-explain {
             color: var(--luxury-gold);
-            background-color: rgba(197, 160, 89, 0.07);
-            border-color: rgba(197, 160, 89, 0.35);
+            background: linear-gradient(135deg, rgba(197, 160, 89, 0.16), rgba(197, 160, 89, 0.05));
+            border-color: rgba(197, 160, 89, 0.5);
+            box-shadow: 0 2px 8px rgba(197, 160, 89, 0.08);
+        }
+
+        [data-theme="dark"] .btn-explain {
+            color: var(--light-gold);
+            background: linear-gradient(135deg, rgba(229, 199, 143, 0.14), rgba(229, 199, 143, 0.04));
+            border-color: rgba(229, 199, 143, 0.42);
+        }
+
+        /* מפלס 3: מידע נוסף - הכפתור השקוף, המשני ביותר */
+        .btn-info {
+            color: var(--luxury-gold);
+            background: transparent;
+            border-color: rgba(197, 160, 89, 0.32);
+            opacity: 0.92;
+        }
+
+        [data-theme="dark"] .btn-info {
+            color: var(--light-gold);
+            border-color: rgba(229, 199, 143, 0.28);
         }
 
         /* אפקטי hover מוחלים רק במכשירים שתומכים בהובר אמיתי (עכבר),
            למניעת "הישארות" של מצב הובר במסכי מגע לאחר לחיצה */
         @media (hover: hover) and (pointer: fine) {
             .btn-nav:hover {
-                background-color: var(--dark-emerald);
+                background: linear-gradient(135deg, #1a3428, #0f2620);
                 color: #fff;
-                border-color: var(--dark-emerald);
-                transform: translateY(-3px);
-                box-shadow: 0 5px 15px rgba(15, 36, 29, 0.15);
+                border-color: var(--luxury-gold);
+                transform: translateY(-2px);
+                box-shadow: 0 10px 22px rgba(15, 36, 29, 0.28),
+                            inset 0 0 0 1px rgba(197, 160, 89, 0.18);
+            }
+            [data-theme="dark"] .btn-nav:hover {
+                background: linear-gradient(135deg, var(--luxury-gold), #b18d47);
+                color: var(--dark-emerald);
+                border-color: var(--luxury-gold);
+                box-shadow: 0 10px 22px rgba(197, 160, 89, 0.3);
             }
 
             .btn-explain:hover {
-                background-color: var(--luxury-gold);
+                background: linear-gradient(135deg, var(--luxury-gold), #b08d47);
                 color: #fff;
                 border-color: var(--luxury-gold);
-                transform: translateY(-3px);
-                box-shadow: 0 5px 15px rgba(197, 160, 89, 0.2);
+                transform: translateY(-2px);
+                box-shadow: 0 10px 22px rgba(197, 160, 89, 0.35);
+            }
+            [data-theme="dark"] .btn-explain:hover {
+                color: var(--dark-emerald);
+            }
+
+            .btn-info:hover {
+                background: rgba(197, 160, 89, 0.1);
+                border-color: rgba(197, 160, 89, 0.6);
+                opacity: 1;
+                transform: translateY(-2px);
+                box-shadow: 0 6px 16px rgba(197, 160, 89, 0.15);
             }
         }
 
@@ -745,61 +801,62 @@
             opacity: 1;
         }
 
-        /* כפתורים צפים - מצב כהה וחזרה למעלה */
+        /* כפתורים צפים - מצב כהה וחזרה למעלה. עדינים ומתפוגגים בזמן גלילה. */
         .floating-controls {
             position: fixed;
-            bottom: 28px;
-            left: 25px;
+            bottom: 26px;
+            left: 22px;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
             z-index: 900;
+            opacity: 0.55;
+            transition: opacity 0.4s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* התפוגגות בזמן גלילה פעילה - חוזרים למראה מלא כשהמשתמש עוצר */
+        body.is-scrolling .floating-controls {
+            opacity: 0.15;
+            transform: translateX(-6px);
         }
 
         .floating-btn {
             position: relative;
-            width: 48px;
-            height: 48px;
+            width: 42px;
+            height: 42px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--dark-emerald), #081410);
+            background: linear-gradient(135deg, rgba(15, 36, 29, 0.94), rgba(8, 20, 16, 0.94));
             color: var(--luxury-gold);
-            border: 1px solid rgba(197, 160, 89, 0.55);
+            border: 1px solid rgba(197, 160, 89, 0.4);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.15rem;
+            font-size: 1rem;
             cursor: pointer;
-            box-shadow: 0 10px 25px rgba(15, 36, 29, 0.3);
+            box-shadow: 0 6px 18px rgba(15, 36, 29, 0.22);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
             transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
                         background 0.4s ease,
                         color 0.4s ease,
+                        border-color 0.4s ease,
                         box-shadow 0.4s ease,
                         opacity 0.4s ease;
             padding: 0;
             font-family: inherit;
-        }
-
-        .floating-btn:hover {
-            background: var(--luxury-gold);
-            color: #fff;
-            transform: translateY(-3px);
-            box-shadow: 0 14px 30px rgba(197, 160, 89, 0.4);
+            -webkit-tap-highlight-color: transparent;
         }
 
         [data-theme="dark"] .floating-btn {
-            background: linear-gradient(135deg, #1e3128, #0d1815);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.55);
-        }
-
-        [data-theme="dark"] .floating-btn:hover {
-            background: var(--luxury-gold);
-            color: var(--dark-emerald);
+            background: linear-gradient(135deg, rgba(30, 49, 40, 0.9), rgba(13, 24, 21, 0.9));
+            border-color: rgba(229, 199, 143, 0.4);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
         }
 
         .scroll-top-btn {
             opacity: 0;
             pointer-events: none;
-            transform: translateY(20px);
+            transform: translateY(15px);
         }
 
         .scroll-top-btn.visible {
@@ -808,13 +865,9 @@
             transform: translateY(0);
         }
 
-        .scroll-top-btn.visible:hover {
-            transform: translateY(-3px);
-        }
-
         .theme-toggle .icon-sun,
         .theme-toggle .icon-moon {
-            transition: opacity 0.3s ease, transform 0.3s ease;
+            transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             position: absolute;
             inset: 0;
             display: flex;
@@ -828,16 +881,37 @@
         [data-theme="dark"] .theme-toggle .icon-sun { opacity: 1; transform: rotate(0) scale(1); }
         [data-theme="dark"] .theme-toggle .icon-moon { opacity: 0; transform: rotate(90deg) scale(0.6); }
 
+        /* מצב הובר - רק במכשירים עם עכבר אמיתי, למניעת "הישארות" של הצבע במגע */
+        @media (hover: hover) and (pointer: fine) {
+            .floating-controls:hover {
+                opacity: 1;
+            }
+            .floating-btn:hover {
+                background: linear-gradient(135deg, var(--luxury-gold), #b18d47);
+                color: #fff;
+                border-color: var(--luxury-gold);
+                transform: translateY(-2px);
+                box-shadow: 0 12px 26px rgba(197, 160, 89, 0.4);
+            }
+            [data-theme="dark"] .floating-btn:hover {
+                color: var(--dark-emerald);
+            }
+            .scroll-top-btn.visible:hover {
+                transform: translateY(-2px);
+            }
+        }
+
         @media (max-width: 480px) {
             .floating-controls {
-                bottom: 18px;
-                left: 15px;
-                gap: 10px;
+                bottom: 16px;
+                left: 14px;
+                gap: 8px;
+                opacity: 0.5;
             }
             .floating-btn {
-                width: 44px;
-                height: 44px;
-                font-size: 1.05rem;
+                width: 40px;
+                height: 40px;
+                font-size: 0.95rem;
             }
         }
 
@@ -932,7 +1006,7 @@
                             <div class="item-actions">
                                 <a href="https://www.google.com/maps/search/?api=1&query=Zurich+Airport" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
                                 <button onclick="askGemini('נחיתה בציריך (Zürich)')" class="btn-action btn-explain">✨ לא הבנתי</button>
-                                <button id="btn-info-d1-1" onclick="toggleDrawer('d1-1')" class="btn-action btn-explain">ℹ️ מידע נוסף</button>
+                                <button id="btn-info-d1-1" onclick="toggleDrawer('d1-1')" class="btn-action btn-info">ℹ️ מידע נוסף</button>
                             </div>
                             <div id="drawer-d1-1" class="info-drawer">
                                 <div class="drawer-inner">
@@ -952,7 +1026,7 @@
                             <div class="item-actions">
                                 <a href="https://www.google.com/maps/search/?api=1&query=Rhine+Falls" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
                                 <button onclick="askGemini('מפלי הריין')" class="btn-action btn-explain">✨ לא הבנתי</button>
-                                <button id="btn-info-d1-2" onclick="toggleDrawer('d1-2')" class="btn-action btn-explain">ℹ️ מידע נוסף</button>
+                                <button id="btn-info-d1-2" onclick="toggleDrawer('d1-2')" class="btn-action btn-info">ℹ️ מידע נוסף</button>
                             </div>
                             <div id="drawer-d1-2" class="info-drawer">
                                 <div class="drawer-inner">
@@ -972,7 +1046,7 @@
                             <div class="item-actions">
                                 <a href="https://www.google.com/maps/search/?api=1&query=Lindenstra%C3%9Fe+9+Schluchsee" target="_blank" class="btn-action btn-nav">📍 ניווט לדירה</a>
                                 <button onclick="askGemini('עיירת הנופש שלוכזה (Schluchsee)')" class="btn-action btn-explain">✨ לא הבנתי</button>
-                                <button id="btn-info-d1-3" onclick="toggleDrawer('d1-3')" class="btn-action btn-explain">ℹ️ מידע נוסף</button>
+                                <button id="btn-info-d1-3" onclick="toggleDrawer('d1-3')" class="btn-action btn-info">ℹ️ מידע נוסף</button>
                             </div>
                             <div id="drawer-d1-3" class="info-drawer">
                                 <div class="drawer-inner">
@@ -1003,7 +1077,7 @@
                             <div class="item-actions">
                                 <a href="https://www.google.com/maps/search/?api=1&query=Hasenhorn+Rodelbahn+Todtnau" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
                                 <button onclick="askGemini('מגלשות ההרים Hasenhorn')" class="btn-action btn-explain">✨ לא הבנתי</button>
-                                <button id="btn-info-d2-1" onclick="toggleDrawer('d2-1')" class="btn-action btn-explain">ℹ️ מידע נוסף</button>
+                                <button id="btn-info-d2-1" onclick="toggleDrawer('d2-1')" class="btn-action btn-info">ℹ️ מידע נוסף</button>
                             </div>
                             <div id="drawer-d2-1" class="info-drawer">
                                 <div class="drawer-inner">
@@ -1023,7 +1097,7 @@
                             <div class="item-actions">
                                 <a href="https://www.google.com/maps/search/?api=1&query=Blackforestline+Todtnau" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
                                 <button onclick="askGemini('גשר החבלים Blackforestline')" class="btn-action btn-explain">✨ לא הבנתי</button>
-                                <button id="btn-info-d2-2" onclick="toggleDrawer('d2-2')" class="btn-action btn-explain">ℹ️ מידע נוסף</button>
+                                <button id="btn-info-d2-2" onclick="toggleDrawer('d2-2')" class="btn-action btn-info">ℹ️ מידע נוסף</button>
                             </div>
                             <div id="drawer-d2-2" class="info-drawer">
                                 <div class="drawer-inner">
@@ -1043,7 +1117,7 @@
                             <div class="item-actions">
                                 <a href="https://www.google.com/maps/search/?api=1&query=Todtnau+Waterfalls" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
                                 <button onclick="askGemini('מפלי טודנאו (Todtnau Waterfalls)')" class="btn-action btn-explain">✨ לא הבנתי</button>
-                                <button id="btn-info-d2-3" onclick="toggleDrawer('d2-3')" class="btn-action btn-explain">ℹ️ מידע נוסף</button>
+                                <button id="btn-info-d2-3" onclick="toggleDrawer('d2-3')" class="btn-action btn-info">ℹ️ מידע נוסף</button>
                             </div>
                             <div id="drawer-d2-3" class="info-drawer">
                                 <div class="drawer-inner">
@@ -1074,7 +1148,7 @@
                             <div class="item-actions">
                                 <a href="https://www.google.com/maps/search/?api=1&query=Mainau+Island" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
                                 <button onclick="askGemini('אי הפרחים מיינאו (Mainau)')" class="btn-action btn-explain">✨ לא הבנתי</button>
-                                <button id="btn-info-d3-1" onclick="toggleDrawer('d3-1')" class="btn-action btn-explain">ℹ️ מידע נוסף</button>
+                                <button id="btn-info-d3-1" onclick="toggleDrawer('d3-1')" class="btn-action btn-info">ℹ️ מידע נוסף</button>
                             </div>
                             <div id="drawer-d3-1" class="info-drawer">
                                 <div class="drawer-inner">
@@ -1094,7 +1168,7 @@
                             <div class="item-actions">
                                 <a href="https://www.google.com/maps/search/?api=1&query=seemaxx+Outlet+Center+Radolfzell" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
                                 <button onclick="askGemini('מתחם האאוטלט SEEMAXX')" class="btn-action btn-explain">✨ לא הבנתי</button>
-                                <button id="btn-info-d3-2" onclick="toggleDrawer('d3-2')" class="btn-action btn-explain">ℹ️ מידע נוסף</button>
+                                <button id="btn-info-d3-2" onclick="toggleDrawer('d3-2')" class="btn-action btn-info">ℹ️ מידע נוסף</button>
                             </div>
                             <div id="drawer-d3-2" class="info-drawer">
                                 <div class="drawer-inner">
@@ -1124,7 +1198,7 @@
                             <div class="item-actions">
                                 <a href="https://www.google.com/maps/search/?api=1&query=Kugelwaldpfad+Birkendorf" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
                                 <button onclick="askGemini('שביל הכדורים (KugelWaldPfad)')" class="btn-action btn-explain">✨ לא הבנתי</button>
-                                <button id="btn-info-d4-1" onclick="toggleDrawer('d4-1')" class="btn-action btn-explain">ℹ️ מידע נוסף</button>
+                                <button id="btn-info-d4-1" onclick="toggleDrawer('d4-1')" class="btn-action btn-info">ℹ️ מידע נוסף</button>
                             </div>
                             <div id="drawer-d4-1" class="info-drawer">
                                 <div class="drawer-inner">
@@ -1143,7 +1217,7 @@
                             <div class="item-actions">
                                 <a href="https://www.google.com/maps/search/?api=1&query=Stein+am+Rhein+Switzerland" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
                                 <button onclick="askGemini('שטיין אם ריין (Stein am Rhein)')" class="btn-action btn-explain">✨ לא הבנתי</button>
-                                <button id="btn-info-d4-2" onclick="toggleDrawer('d4-2')" class="btn-action btn-explain">ℹ️ מידע נוסף</button>
+                                <button id="btn-info-d4-2" onclick="toggleDrawer('d4-2')" class="btn-action btn-info">ℹ️ מידע נוסף</button>
                             </div>
                             <div id="drawer-d4-2" class="info-drawer">
                                 <div class="drawer-inner">
@@ -1163,7 +1237,7 @@
                             <div class="item-actions">
                                 <a href="https://www.google.com/maps/search/?api=1&query=Zurich+Airport" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
                                 <button onclick="askGemini('שדה התעופה בציריך')" class="btn-action btn-explain">✨ לא הבנתי</button>
-                                <button id="btn-info-d4-3" onclick="toggleDrawer('d4-3')" class="btn-action btn-explain">ℹ️ מידע נוסף</button>
+                                <button id="btn-info-d4-3" onclick="toggleDrawer('d4-3')" class="btn-action btn-info">ℹ️ מידע נוסף</button>
                             </div>
                             <div id="drawer-d4-3" class="info-drawer">
                                 <div class="drawer-inner">
@@ -1202,7 +1276,7 @@
                             <div class="item-actions">
                                 <a href="https://www.google.com/maps/search/?api=1&query=Tatzmania+Loffingen" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
                                 <button onclick="askGemini('פארק החיות Tatzmania')" class="btn-action btn-explain">✨ לא הבנתי</button>
-                                <button id="btn-info-d5-1" onclick="toggleDrawer('d5-1')" class="btn-action btn-explain">ℹ️ מידע נוסף</button>
+                                <button id="btn-info-d5-1" onclick="toggleDrawer('d5-1')" class="btn-action btn-info">ℹ️ מידע נוסף</button>
                             </div>
                             <div id="drawer-d5-1" class="info-drawer">
                                 <div class="drawer-inner">
@@ -1221,7 +1295,7 @@
                             <div class="item-actions">
                                 <a href="https://www.google.com/maps/search/?api=1&query=Schluchsee" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
                                 <button onclick="askGemini('חזרה והתארגנות בשלוכזה')" class="btn-action btn-explain">✨ לא הבנתי</button>
-                                <button id="btn-info-d5-2" onclick="toggleDrawer('d5-2')" class="btn-action btn-explain">ℹ️ מידע נוסף</button>
+                                <button id="btn-info-d5-2" onclick="toggleDrawer('d5-2')" class="btn-action btn-info">ℹ️ מידע נוסף</button>
                             </div>
                             <div id="drawer-d5-2" class="info-drawer">
                                 <div class="drawer-inner">
@@ -1260,7 +1334,7 @@
                             <div class="item-actions">
                                 <a href="https://www.google.com/maps/search/?api=1&query=Schluchsee+Lake" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
                                 <button onclick="askGemini('אגם שלוכזה ומנוחה בשבת')" class="btn-action btn-explain">✨ לא הבנתי</button>
-                                <button id="btn-info-d6-1" onclick="toggleDrawer('d6-1')" class="btn-action btn-explain">ℹ️ מידע נוסף</button>
+                                <button id="btn-info-d6-1" onclick="toggleDrawer('d6-1')" class="btn-action btn-info">ℹ️ מידע נוסף</button>
                             </div>
                             <div id="drawer-d6-1" class="info-drawer">
                                 <div class="drawer-inner">
@@ -1291,7 +1365,7 @@
                             <div class="item-actions">
                                 <a href="https://www.google.com/maps/search/?api=1&query=Feldberg+Black+Forest" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
                                 <button onclick="askGemini('הר הפלדברג (Feldberg)')" class="btn-action btn-explain">✨ לא הבנתי</button>
-                                <button id="btn-info-d7-1" onclick="toggleDrawer('d7-1')" class="btn-action btn-explain">ℹ️ מידע נוסף</button>
+                                <button id="btn-info-d7-1" onclick="toggleDrawer('d7-1')" class="btn-action btn-info">ℹ️ מידע נוסף</button>
                             </div>
                             <div id="drawer-d7-1" class="info-drawer">
                                 <div class="drawer-inner">
@@ -1329,7 +1403,7 @@
                             <div class="item-actions">
                                 <a href="https://www.google.com/maps/search/?api=1&query=Schluchsee" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
                                 <button onclick="askGemini('צ\'ק-אאוט ונפרדים משלוכזה')" class="btn-action btn-explain">✨ לא הבנתי</button>
-                                <button id="btn-info-d8-1" onclick="toggleDrawer('d8-1')" class="btn-action btn-explain">ℹ️ מידע נוסף</button>
+                                <button id="btn-info-d8-1" onclick="toggleDrawer('d8-1')" class="btn-action btn-info">ℹ️ מידע נוסף</button>
                             </div>
                             <div id="drawer-d8-1" class="info-drawer">
                                 <div class="drawer-inner">
@@ -1353,7 +1427,7 @@
                             <div class="item-actions">
                                 <a href="https://www.google.com/maps/search/?api=1&query=Mulhouse+France" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
                                 <button onclick="askGemini('מוזיאונים בעיר מולהאוס Mulhouse')" class="btn-action btn-explain">✨ לא הבנתי</button>
-                                <button id="btn-info-d8-2" onclick="toggleDrawer('d8-2')" class="btn-action btn-explain">ℹ️ מידע נוסף</button>
+                                <button id="btn-info-d8-2" onclick="toggleDrawer('d8-2')" class="btn-action btn-info">ℹ️ מידע נוסף</button>
                             </div>
                             <div id="drawer-d8-2" class="info-drawer">
                                 <div class="drawer-inner">
@@ -1372,7 +1446,7 @@
                             <div class="item-actions">
                                 <a href="https://www.google.com/maps/search/?api=1&query=Hauptstra%C3%9Fe+22+Ringsheim" target="_blank" class="btn-action btn-nav">📍 ניווט לדירה</a>
                                 <button onclick="askGemini('העיירה רינגסהיים (Ringsheim)')" class="btn-action btn-explain">✨ לא הבנתי</button>
-                                <button id="btn-info-d8-3" onclick="toggleDrawer('d8-3')" class="btn-action btn-explain">ℹ️ מידע נוסף</button>
+                                <button id="btn-info-d8-3" onclick="toggleDrawer('d8-3')" class="btn-action btn-info">ℹ️ מידע נוסף</button>
                             </div>
                             <div id="drawer-d8-3" class="info-drawer">
                                 <div class="drawer-inner">
@@ -1402,7 +1476,7 @@
                             <div class="item-actions">
                                 <a href="https://www.google.com/maps/search/?api=1&query=Europa-Park+Rust" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
                                 <button onclick="askGemini('פארק אירופה (Europa-Park)')" class="btn-action btn-explain">✨ לא הבנתי</button>
-                                <button id="btn-info-d9-1" onclick="toggleDrawer('d9-1')" class="btn-action btn-explain">ℹ️ מידע נוסף</button>
+                                <button id="btn-info-d9-1" onclick="toggleDrawer('d9-1')" class="btn-action btn-info">ℹ️ מידע נוסף</button>
                             </div>
                             <div id="drawer-d9-1" class="info-drawer">
                                 <div class="drawer-inner">
@@ -1432,7 +1506,7 @@
                             <div class="item-actions">
                                 <a href="https://www.google.com/maps/search/?api=1&query=Zurich+Airport" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
                                 <button onclick="askGemini('נסיעה חזרה מגרמניה לציריך')" class="btn-action btn-explain">✨ לא הבנתי</button>
-                                <button id="btn-info-d10-1" onclick="toggleDrawer('d10-1')" class="btn-action btn-explain">ℹ️ מידע נוסף</button>
+                                <button id="btn-info-d10-1" onclick="toggleDrawer('d10-1')" class="btn-action btn-info">ℹ️ מידע נוסף</button>
                             </div>
                             <div id="drawer-d10-1" class="info-drawer">
                                 <div class="drawer-inner">
@@ -1451,7 +1525,7 @@
                             <div class="item-actions">
                                 <a href="https://www.google.com/maps/search/?api=1&query=Zurich+Airport+Car+Return" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
                                 <button onclick="askGemini('החזרת רכב שכור בשדה התעופה בציריך')" class="btn-action btn-explain">✨ לא הבנתי</button>
-                                <button id="btn-info-d10-2" onclick="toggleDrawer('d10-2')" class="btn-action btn-explain">ℹ️ מידע נוסף</button>
+                                <button id="btn-info-d10-2" onclick="toggleDrawer('d10-2')" class="btn-action btn-info">ℹ️ מידע נוסף</button>
                             </div>
                             <div id="drawer-d10-2" class="info-drawer">
                                 <div class="drawer-inner">
@@ -1471,7 +1545,7 @@
                             <div class="item-actions">
                                 <a href="https://www.google.com/maps/search/?api=1&query=Zurich+Airport+Departures" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
                                 <button onclick="askGemini('טיסה חזרה מציריך לישראל')" class="btn-action btn-explain">✨ לא הבנתי</button>
-                                <button id="btn-info-d10-3" onclick="toggleDrawer('d10-3')" class="btn-action btn-explain">ℹ️ מידע נוסף</button>
+                                <button id="btn-info-d10-3" onclick="toggleDrawer('d10-3')" class="btn-action btn-info">ℹ️ מידע נוסף</button>
                             </div>
                             <div id="drawer-d10-3" class="info-drawer">
                                 <div class="drawer-inner">
@@ -1625,6 +1699,7 @@
             const sections = document.querySelectorAll('.day-block, .map-container-card');
             const navLinks = document.querySelectorAll('.nav-link');
             const scrollTopBtn = document.getElementById('scrollTopBtn');
+            let scrollIdleTimer;
 
             window.addEventListener('scroll', () => {
                 let current = '';
@@ -1651,7 +1726,14 @@
                         scrollTopBtn.classList.remove('visible');
                     }
                 }
-            });
+
+                // סימון גלילה פעילה - הכפתורים הצפים מתפוגגים ומופיעים שוב כשהמשתמש עוצר
+                document.body.classList.add('is-scrolling');
+                clearTimeout(scrollIdleTimer);
+                scrollIdleTimer = setTimeout(() => {
+                    document.body.classList.remove('is-scrolling');
+                }, 650);
+            }, { passive: true });
         });
 
         let currentPrompt = "";
