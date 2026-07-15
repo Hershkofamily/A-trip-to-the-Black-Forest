@@ -1134,7 +1134,7 @@
         <h1>THE BLACK FOREST</h1>
         <p>חוויית יוקרה פרטית • גרמניה, שווייץ וצרפת • קיץ 2026</p>
         <div id="countdown" class="countdown" aria-live="polite">
-            <div class="cd-label">עד ההמראה</div>
+            <div class="cd-label" id="cd-label">עד ההמראה</div>
             <div class="cd-blocks">
                 <div class="cd-block"><div class="cd-num" id="cd-days">--</div><div class="cd-lbl">ימים</div></div>
                 <span class="cd-sep">:</span>
@@ -1869,11 +1869,16 @@
             btn.blur();
         }
 
-        // טיימר ספירה לאחור עד יום ההמראה (17.8.2026 בבוקר, שעון ישראל)
+        // טיימר דו-שלבי:
+        //   1) עד ההמראה — 17.8.2026 בשעה 05:00 (שעון ישראל, IDT)
+        //   2) אחרי ההמראה, אוטומטית עובר לספירה עד הטיסה חזרה — 26.8.2026 בשעה 19:00 (שעון ציריך, CEST)
         (function initCountdown() {
-            const targetDate = new Date('2026-08-17T00:00:00+03:00').getTime();
+            const DEPARTURE = new Date('2026-08-17T05:00:00+03:00').getTime();
+            const RETURN_FLIGHT = new Date('2026-08-26T19:00:00+02:00').getTime();
+
             const el = {
                 container: document.getElementById('countdown'),
+                label: document.getElementById('cd-label'),
                 days: document.getElementById('cd-days'),
                 hrs: document.getElementById('cd-hrs'),
                 mins: document.getElementById('cd-mins'),
@@ -1883,12 +1888,23 @@
 
             function pad(n) { return String(n).padStart(2, '0'); }
 
+            function currentPhase() {
+                const now = Date.now();
+                if (now < DEPARTURE) return { target: DEPARTURE, label: 'עד ההמראה' };
+                if (now < RETURN_FLIGHT) return { target: RETURN_FLIGHT, label: 'עד הטיסה חזרה' };
+                return null;
+            }
+
             function tick() {
-                const diff = targetDate - Date.now();
-                if (diff <= 0) {
+                const phase = currentPhase();
+                if (!phase) {
                     el.container.style.display = 'none';
                     return true;
                 }
+                if (el.label.textContent !== phase.label) {
+                    el.label.textContent = phase.label;
+                }
+                const diff = phase.target - Date.now();
                 const d = Math.floor(diff / 86400000);
                 const h = Math.floor((diff % 86400000) / 3600000);
                 const m = Math.floor((diff % 3600000) / 60000);
