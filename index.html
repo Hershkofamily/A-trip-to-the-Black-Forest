@@ -174,7 +174,7 @@
             font-weight: 200;
             letter-spacing: 1px;
             color: #eaeaea;
-            margin-bottom: 40px;
+            margin-bottom: 24px;
             max-width: 90%;
             animation: fadeInUp 2s cubic-bezier(0.16, 1, 0.3, 1) both;
             animation-delay: 0.3s;
@@ -189,6 +189,121 @@
             animation: bounce 2s infinite;
             font-weight: 600;
             opacity: 0.8;
+        }
+
+        /* ספירה לאחור בכניסה לאתר */
+        .countdown {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            margin-top: 6px;
+            margin-bottom: 24px;
+            animation: fadeInUp 2.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+            animation-delay: 0.55s;
+        }
+
+        .cd-label {
+            font-family: 'Cinzel', serif;
+            font-size: 0.72rem;
+            letter-spacing: 0.4em;
+            color: var(--luxury-gold);
+            text-transform: uppercase;
+            opacity: 0.85;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .cd-label::before,
+        .cd-label::after {
+            content: '';
+            width: 22px;
+            height: 1px;
+            background: var(--luxury-gold);
+            opacity: 0.5;
+        }
+
+        .cd-blocks {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .cd-block {
+            background: rgba(15, 36, 29, 0.55);
+            border: 1px solid rgba(197, 160, 89, 0.32);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            padding: 10px 6px 7px;
+            border-radius: 8px;
+            min-width: 62px;
+            text-align: center;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+        }
+
+        .cd-num {
+            font-family: 'Cinzel', serif;
+            font-size: 1.85rem;
+            font-weight: 600;
+            color: var(--luxury-gold);
+            line-height: 1;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .cd-lbl {
+            font-family: 'Cinzel', serif;
+            font-size: 9px;
+            letter-spacing: 0.22em;
+            color: var(--luxury-gold);
+            margin-top: 5px;
+            text-transform: uppercase;
+            opacity: 0.72;
+        }
+
+        .cd-sep {
+            color: var(--luxury-gold);
+            font-size: 1.5rem;
+            font-weight: 300;
+            opacity: 0.35;
+            padding-bottom: 12px;
+        }
+
+        @media (max-width: 480px) {
+            .countdown { gap: 8px; margin-bottom: 18px; }
+            .cd-label { font-size: 0.65rem; letter-spacing: 0.3em; gap: 8px; }
+            .cd-label::before, .cd-label::after { width: 14px; }
+            .cd-block { min-width: 52px; padding: 8px 3px 5px; }
+            .cd-num { font-size: 1.5rem; }
+            .cd-lbl { font-size: 8px; letter-spacing: 0.15em; }
+            .cd-sep { font-size: 1.25rem; padding-bottom: 10px; }
+        }
+
+        /* חלוקת פרקים מעוטרת - קו זהב עדין ומוטיב מרכזי */
+        .part-ornament {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            color: var(--luxury-gold);
+            margin-bottom: 20px;
+            opacity: 0.92;
+        }
+
+        .orn-line {
+            flex: 0 0 72px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--luxury-gold) 50%, transparent);
+        }
+
+        .orn-mark {
+            flex-shrink: 0;
+            color: var(--luxury-gold);
+        }
+
+        @media (max-width: 480px) {
+            .part-ornament { gap: 10px; margin-bottom: 14px; }
+            .orn-line { flex-basis: 50px; }
         }
 
         .wrapper {
@@ -373,6 +488,13 @@
             gap: 12px;
             margin-top: 15px;
             flex-wrap: wrap;
+        }
+
+        /* אייקון SVG בתוך כפתור - יורש currentColor אוטומטית */
+        .btn-icon {
+            width: 13px;
+            height: 13px;
+            flex-shrink: 0;
         }
 
         /* כפתורי פעולה - עיצוב pill יוקרתי בהיררכיית שלושה מפלסים */
@@ -963,6 +1085,35 @@
 </head>
 <body>
 
+    <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+        <defs>
+            <symbol id="icon-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                <circle cx="12" cy="10" r="2.8"/>
+            </symbol>
+            <symbol id="icon-sparkle" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M11 3L13 9L20 11L13 13L11 20L9 13L2 11L9 9Z"/>
+                <circle cx="19.5" cy="5" r="1.4"/>
+            </symbol>
+            <symbol id="icon-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9.5"/>
+                <path d="M12 11v5"/>
+                <circle cx="12" cy="7.8" r="0.6" fill="currentColor" stroke="none"/>
+            </symbol>
+            <symbol id="icon-chevron-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 15 12 9 18 15"/>
+            </symbol>
+            <symbol id="icon-cam" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="23 7 16 12 23 17 23 7"/>
+                <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+            </symbol>
+            <symbol id="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="4"/>
+                <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+            </symbol>
+        </defs>
+    </svg>
+
     <nav class="luxury-nav">
         <div class="nav-container">
             <a href="#day1" class="nav-link">יום 1 | 17.8</a>
@@ -982,12 +1133,33 @@
     <header>
         <h1>THE BLACK FOREST</h1>
         <p>חוויית יוקרה פרטית • גרמניה, שווייץ וצרפת • קיץ 2026</p>
+        <div id="countdown" class="countdown" aria-live="polite">
+            <div class="cd-label">עד ההמראה</div>
+            <div class="cd-blocks">
+                <div class="cd-block"><div class="cd-num" id="cd-days">--</div><div class="cd-lbl">ימים</div></div>
+                <span class="cd-sep">:</span>
+                <div class="cd-block"><div class="cd-num" id="cd-hrs">--</div><div class="cd-lbl">שעות</div></div>
+                <span class="cd-sep">:</span>
+                <div class="cd-block"><div class="cd-num" id="cd-mins">--</div><div class="cd-lbl">דקות</div></div>
+                <span class="cd-sep">:</span>
+                <div class="cd-block"><div class="cd-num" id="cd-secs">--</div><div class="cd-lbl">שניות</div></div>
+            </div>
+        </div>
         <div class="scroll-down">גללו מטה לחשיפת המסלול ⬇</div>
     </header>
 
     <div class="wrapper">
 
         <div class="part-header" id="part1">
+            <div class="part-ornament" aria-hidden="true">
+                <span class="orn-line"></span>
+                <svg class="orn-mark" width="34" height="8" viewBox="0 0 40 8" fill="currentColor">
+                    <circle cx="8" cy="4" r="1"/>
+                    <path d="M20 0 L23.5 4 L20 8 L16.5 4 Z"/>
+                    <circle cx="32" cy="4" r="1"/>
+                </svg>
+                <span class="orn-line"></span>
+            </div>
             <span>בסיס ראשון</span>
             <h2>אגם שלוכזה והרי הדרום</h2>
         </div>
@@ -1004,9 +1176,9 @@
                             <div class="item-title">נחיתה בציריך (Zürich)</div>
                             <div class="item-desc">נוחתים בשווייץ, אוספים את רכב המנהלים השכור ויוצאים בנסיעה מענגת לכיוון צפון.</div>
                             <div class="item-actions">
-                                <a href="https://www.google.com/maps/search/?api=1&query=Zurich+Airport" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
-                                <button onclick="askGemini('נחיתה בציריך (Zürich)')" class="btn-action btn-explain">✨ לא הבנתי</button>
-                                <button id="btn-info-d1-1" onclick="toggleDrawer('d1-1')" class="btn-action btn-info">ℹ️ מידע נוסף</button>
+                                <a href="https://www.google.com/maps/search/?api=1&query=Zurich+Airport" target="_blank" class="btn-action btn-nav"><svg class="btn-icon"><use href="#icon-pin"/></svg> ניווט ליעד</a>
+                                <button onclick="askGemini('נחיתה בציריך (Zürich)')" class="btn-action btn-explain"><svg class="btn-icon"><use href="#icon-sparkle"/></svg> לא הבנתי</button>
+                                <button id="btn-info-d1-1" onclick="toggleDrawer('d1-1')" class="btn-action btn-info"><svg class="btn-icon"><use href="#icon-info"/></svg> מידע נוסף</button>
                             </div>
                             <div id="drawer-d1-1" class="info-drawer">
                                 <div class="drawer-inner">
@@ -1014,8 +1186,8 @@
                                     <p><strong>📅 הזמנה מראש:</strong> לא נדרש עבור תחנת המעבר.</p>
                                     <p><strong>💡 טיפ אקסקלוסיבי:</strong> ודאו שקיבלתם את מדבקת האוטוסטרדות השווייצרית (Vignette) עם קבלת הרכב, כדי למנוע קנסות מיותרים בכבישים המהירים.</p>
                                     <div class="drawer-links">
-                                        <a href="https://www.flughafen-zuerich.ch/en/passengers/experience/airport-experience/webcams" target="_blank" class="btn-action btn-nav">📹 מצלמת רשת</a>
-                                        <a href="https://www.google.com/search?q=weather+Zurich+Airport" target="_blank" class="btn-action btn-explain">🌦️ מזג אוויר</a>
+                                        <a href="https://www.flughafen-zuerich.ch/en/passengers/experience/airport-experience/webcams" target="_blank" class="btn-action btn-nav"><svg class="btn-icon"><use href="#icon-cam"/></svg> מצלמת רשת</a>
+                                        <a href="https://www.google.com/search?q=weather+Zurich+Airport" target="_blank" class="btn-action btn-explain"><svg class="btn-icon"><use href="#icon-sun"/></svg> מזג אוויר</a>
                                     </div>
                                 </div>
                             </div>
@@ -1024,9 +1196,9 @@
                             <div class="item-title">מפלי הריין <span class="tag tag-optional">אופציונלי</span></div>
                             <div class="item-desc">עצירה במפלים המישוריים הגדולים והמרשימים ביותר באירופה. ביקור מותנה בקצב השחרור וההתארגנות בשדה התעופה.</div>
                             <div class="item-actions">
-                                <a href="https://www.google.com/maps/search/?api=1&query=Rhine+Falls" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
-                                <button onclick="askGemini('מפלי הריין')" class="btn-action btn-explain">✨ לא הבנתי</button>
-                                <button id="btn-info-d1-2" onclick="toggleDrawer('d1-2')" class="btn-action btn-info">ℹ️ מידע נוסף</button>
+                                <a href="https://www.google.com/maps/search/?api=1&query=Rhine+Falls" target="_blank" class="btn-action btn-nav"><svg class="btn-icon"><use href="#icon-pin"/></svg> ניווט ליעד</a>
+                                <button onclick="askGemini('מפלי הריין')" class="btn-action btn-explain"><svg class="btn-icon"><use href="#icon-sparkle"/></svg> לא הבנתי</button>
+                                <button id="btn-info-d1-2" onclick="toggleDrawer('d1-2')" class="btn-action btn-info"><svg class="btn-icon"><use href="#icon-info"/></svg> מידע נוסף</button>
                             </div>
                             <div id="drawer-d1-2" class="info-drawer">
                                 <div class="drawer-inner">
@@ -1034,8 +1206,8 @@
                                     <p><strong>📅 הזמנה מראש:</strong> אין חובה להזמין מראש. כרטיסים לשייט בסירות קונים במקום.</p>
                                     <p><strong>💡 טיפ אקסקלוסיבי:</strong> התצפית הפוטוגנית ביותר נמצאת בצד של טירת לאופן (Schloss Laufen) - שם תמצאו גם מעלית זכוכית פנורמית שיורדת עד למרפסת המים המרכזית.</p>
                                     <div class="drawer-links">
-                                        <a href="https://www.rheinfall.ch/en/experience/webcam" target="_blank" class="btn-action btn-nav">📹 מצלמת רשת</a>
-                                        <a href="https://www.google.com/search?q=weather+Neuhausen+am+Rheinfall" target="_blank" class="btn-action btn-explain">🌦️ מזג אוויר</a>
+                                        <a href="https://www.rheinfall.ch/en/experience/webcam" target="_blank" class="btn-action btn-nav"><svg class="btn-icon"><use href="#icon-cam"/></svg> מצלמת רשת</a>
+                                        <a href="https://www.google.com/search?q=weather+Neuhausen+am+Rheinfall" target="_blank" class="btn-action btn-explain"><svg class="btn-icon"><use href="#icon-sun"/></svg> מזג אוויר</a>
                                     </div>
                                 </div>
                             </div>
@@ -1044,9 +1216,9 @@
                             <div class="item-title">הגעה לדירה בשלוכזה • Lindenstraße 9</div>
                             <div class="item-desc">צ'ק-אין בדירת היוקרה שלכם ברחוב Lindenstraße 9, שלוכזה, מול האגם השלו. לאחר מכן התארגנות וקניית מצרכים ראשוניים בסופרמרקט המקומי.</div>
                             <div class="item-actions">
-                                <a href="https://www.google.com/maps/search/?api=1&query=Lindenstra%C3%9Fe+9+Schluchsee" target="_blank" class="btn-action btn-nav">📍 ניווט לדירה</a>
-                                <button onclick="askGemini('עיירת הנופש שלוכזה (Schluchsee)')" class="btn-action btn-explain">✨ לא הבנתי</button>
-                                <button id="btn-info-d1-3" onclick="toggleDrawer('d1-3')" class="btn-action btn-info">ℹ️ מידע נוסף</button>
+                                <a href="https://www.google.com/maps/search/?api=1&query=Lindenstra%C3%9Fe+9+Schluchsee" target="_blank" class="btn-action btn-nav"><svg class="btn-icon"><use href="#icon-pin"/></svg> ניווט לדירה</a>
+                                <button onclick="askGemini('עיירת הנופש שלוכזה (Schluchsee)')" class="btn-action btn-explain"><svg class="btn-icon"><use href="#icon-sparkle"/></svg> לא הבנתי</button>
+                                <button id="btn-info-d1-3" onclick="toggleDrawer('d1-3')" class="btn-action btn-info"><svg class="btn-icon"><use href="#icon-info"/></svg> מידע נוסף</button>
                             </div>
                             <div id="drawer-d1-3" class="info-drawer">
                                 <div class="drawer-inner">
@@ -1054,8 +1226,8 @@
                                     <p><strong>📅 הזמנה מראש:</strong> לא נדרש עבור העיירה וההגעה.</p>
                                     <p><strong>💡 טיפ אקסקלוסיבי:</strong> הסופרמרקט המקומי הגדול (Edeka) נסגר לרוב בשעה 20:00. אם אתם מגיעים מאוחר, מומלץ לעצור להצטיידות קלה עוד בדרך בגרמניה.</p>
                                     <div class="drawer-links">
-                                        <a href="https://www.hochschwarzwald.de/service/webcams/webcam-schluchsee" target="_blank" class="btn-action btn-nav">📹 מצלמת רשת</a>
-                                        <a href="https://www.google.com/search?q=weather+Schluchsee" target="_blank" class="btn-action btn-explain">🌦️ מזג אוויר</a>
+                                        <a href="https://www.hochschwarzwald.de/service/webcams/webcam-schluchsee" target="_blank" class="btn-action btn-nav"><svg class="btn-icon"><use href="#icon-cam"/></svg> מצלמת רשת</a>
+                                        <a href="https://www.google.com/search?q=weather+Schluchsee" target="_blank" class="btn-action btn-explain"><svg class="btn-icon"><use href="#icon-sun"/></svg> מזג אוויר</a>
                                     </div>
                                 </div>
                             </div>
@@ -1075,9 +1247,9 @@
                             <div class="item-title">מגלשות ההרים Hasenhorn <a href="https://www.blackforest-highlights.com/poi/detail/berggasthaus-hasenhorn-e4a378d844" target="_blank">אתר רשמי ↗</a></div>
                             <div class="item-desc">חוויית אדרנלין מטורפת. עולים ברכבל אל פסגת ההר ויורדים בגלישה מהירה ופנורמית בהתאמה אישית של מהירות הגלישה.</div>
                             <div class="item-actions">
-                                <a href="https://www.google.com/maps/search/?api=1&query=Hasenhorn+Rodelbahn+Todtnau" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
-                                <button onclick="askGemini('מגלשות ההרים Hasenhorn')" class="btn-action btn-explain">✨ לא הבנתי</button>
-                                <button id="btn-info-d2-1" onclick="toggleDrawer('d2-1')" class="btn-action btn-info">ℹ️ מידע נוסף</button>
+                                <a href="https://www.google.com/maps/search/?api=1&query=Hasenhorn+Rodelbahn+Todtnau" target="_blank" class="btn-action btn-nav"><svg class="btn-icon"><use href="#icon-pin"/></svg> ניווט ליעד</a>
+                                <button onclick="askGemini('מגלשות ההרים Hasenhorn')" class="btn-action btn-explain"><svg class="btn-icon"><use href="#icon-sparkle"/></svg> לא הבנתי</button>
+                                <button id="btn-info-d2-1" onclick="toggleDrawer('d2-1')" class="btn-action btn-info"><svg class="btn-icon"><use href="#icon-info"/></svg> מידע נוסף</button>
                             </div>
                             <div id="drawer-d2-1" class="info-drawer">
                                 <div class="drawer-inner">
@@ -1085,8 +1257,8 @@
                                     <p><strong>📅 הזמנה מראש:</strong> לא ניתן להזמין כרטיסים לתאריך ושעה מראש. התור מתנהל במקום.</p>
                                     <p><strong>💡 טיפ אקסקלוסיבי:</strong> זהו אחד האתרים המבוקשים ביותר. מומלץ להגיע כ-15 דקות לפני שעת הפתיחה בבוקר כדי לעלות בין הראשונים ולחסוך תורים של מעל שעה.</p>
                                     <div class="drawer-links">
-                                        <a href="https://www.bergfex.de/todtnau-hasenhorn/webcams/c12480/" target="_blank" class="btn-action btn-nav">📹 מצלמת רשת</a>
-                                        <a href="https://www.google.com/search?q=weather+Todtnau" target="_blank" class="btn-action btn-explain">🌦️ מזג אוויר</a>
+                                        <a href="https://www.bergfex.de/todtnau-hasenhorn/webcams/c12480/" target="_blank" class="btn-action btn-nav"><svg class="btn-icon"><use href="#icon-cam"/></svg> מצלמת רשת</a>
+                                        <a href="https://www.google.com/search?q=weather+Todtnau" target="_blank" class="btn-action btn-explain"><svg class="btn-icon"><use href="#icon-sun"/></svg> מזג אוויר</a>
                                     </div>
                                 </div>
                             </div>
@@ -1095,9 +1267,9 @@
                             <div class="item-title">גשר החבלים Blackforestline <a href="https://blackforestline.de/en/" target="_blank">אתר רשמי ↗</a></div>
                             <div class="item-desc">הליכה מרגשת בגובה שמיים על גשר חבלים תלוי ענק, המציע נוף עוצר נשימה ותצפית ממעוף הציפור על כל הוואדי.</div>
                             <div class="item-actions">
-                                <a href="https://www.google.com/maps/search/?api=1&query=Blackforestline+Todtnau" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
-                                <button onclick="askGemini('גשר החבלים Blackforestline')" class="btn-action btn-explain">✨ לא הבנתי</button>
-                                <button id="btn-info-d2-2" onclick="toggleDrawer('d2-2')" class="btn-action btn-info">ℹ️ מידע נוסף</button>
+                                <a href="https://www.google.com/maps/search/?api=1&query=Blackforestline+Todtnau" target="_blank" class="btn-action btn-nav"><svg class="btn-icon"><use href="#icon-pin"/></svg> ניווט ליעד</a>
+                                <button onclick="askGemini('גשר החבלים Blackforestline')" class="btn-action btn-explain"><svg class="btn-icon"><use href="#icon-sparkle"/></svg> לא הבנתי</button>
+                                <button id="btn-info-d2-2" onclick="toggleDrawer('d2-2')" class="btn-action btn-info"><svg class="btn-icon"><use href="#icon-info"/></svg> מידע נוסף</button>
                             </div>
                             <div id="drawer-d2-2" class="info-drawer">
                                 <div class="drawer-inner">
@@ -1105,8 +1277,8 @@
                                     <p><strong>📅 הזמנה מראש:</strong> מומלץ לרכוש כרטיס משולב אונליין (הכולל גם את המפלים) ישירות באתר כדי לדלג על הקופות.</p>
                                     <p><strong>💡 טיפ אקסקלוסיבי:</strong> הגשר תלוי בדיוק מעל מפלי טודנאו. התחושה של הליכה באוויר מעל רסס המים המרשים היא ספוט מושלם לתמונות משפחתיות.</p>
                                     <div class="drawer-links">
-                                        <a href="https://blackforestline.de/" target="_blank" class="btn-action btn-nav">📹 מצלמת רשת</a>
-                                        <a href="https://www.google.com/search?q=weather+Todtnau" target="_blank" class="btn-action btn-explain">🌦️ מזג אוויר</a>
+                                        <a href="https://blackforestline.de/" target="_blank" class="btn-action btn-nav"><svg class="btn-icon"><use href="#icon-cam"/></svg> מצלמת רשת</a>
+                                        <a href="https://www.google.com/search?q=weather+Todtnau" target="_blank" class="btn-action btn-explain"><svg class="btn-icon"><use href="#icon-sun"/></svg> מזג אוויר</a>
                                     </div>
                                 </div>
                             </div>
@@ -1115,9 +1287,9 @@
                             <div class="item-title">מפלי טודנאו (Todtnau Waterfalls)</div>
                             <div class="item-desc">טיול רגלי מעגלי, קליל ומרענן (כ-2.4 ק"מ) בלב היער בין המפלים השוצפים והיפים של האזור.</div>
                             <div class="item-actions">
-                                <a href="https://www.google.com/maps/search/?api=1&query=Todtnau+Waterfalls" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
-                                <button onclick="askGemini('מפלי טודנאו (Todtnau Waterfalls)')" class="btn-action btn-explain">✨ לא הבנתי</button>
-                                <button id="btn-info-d2-3" onclick="toggleDrawer('d2-3')" class="btn-action btn-info">ℹ️ מידע נוסף</button>
+                                <a href="https://www.google.com/maps/search/?api=1&query=Todtnau+Waterfalls" target="_blank" class="btn-action btn-nav"><svg class="btn-icon"><use href="#icon-pin"/></svg> ניווט ליעד</a>
+                                <button onclick="askGemini('מפלי טודנאו (Todtnau Waterfalls)')" class="btn-action btn-explain"><svg class="btn-icon"><use href="#icon-sparkle"/></svg> לא הבנתי</button>
+                                <button id="btn-info-d2-3" onclick="toggleDrawer('d2-3')" class="btn-action btn-info"><svg class="btn-icon"><use href="#icon-info"/></svg> מידע נוסף</button>
                             </div>
                             <div id="drawer-d2-3" class="info-drawer">
                                 <div class="drawer-inner">
@@ -1125,8 +1297,8 @@
                                     <p><strong>📅 הזמנה מראש:</strong> לא נדרש.</p>
                                     <p><strong>💡 טיפ אקסקלוסיבי:</strong> בתחתית המפל הראשי פזורות מיטות עץ ארגונומיות מסתובבות מיוחדות. שווה לעצור שם לכמה דקות, לשכב ולהקשיב לשאון המים הירקוני.</p>
                                     <div class="drawer-links">
-                                        <a href="https://blackforestline.de/" target="_blank" class="btn-action btn-nav">📹 מצלמת רשת</a>
-                                        <a href="https://www.google.com/search?q=weather+Todtnau+waterfalls" target="_blank" class="btn-action btn-explain">🌦️ מזג אוויר</a>
+                                        <a href="https://blackforestline.de/" target="_blank" class="btn-action btn-nav"><svg class="btn-icon"><use href="#icon-cam"/></svg> מצלמת רשת</a>
+                                        <a href="https://www.google.com/search?q=weather+Todtnau+waterfalls" target="_blank" class="btn-action btn-explain"><svg class="btn-icon"><use href="#icon-sun"/></svg> מזג אוויר</a>
                                     </div>
                                 </div>
                             </div>
@@ -1146,9 +1318,9 @@
                             <div class="item-title">אי הפרחים מיינאו (Mainau) <a href="https://www.europeanhistoricgardens.eu/en/mainau" target="_blank">אתר רשמי ↗</a></div>
                             <div class="item-desc">אצולה בלב אגם קונסטנץ. בילוי בגנים בוטניים מעוצבים עוצרי נשימה, חממת פרפרים טרופית ענקית ומדשאות רחבות ידיים.</div>
                             <div class="item-actions">
-                                <a href="https://www.google.com/maps/search/?api=1&query=Mainau+Island" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
-                                <button onclick="askGemini('אי הפרחים מיינאו (Mainau)')" class="btn-action btn-explain">✨ לא הבנתי</button>
-                                <button id="btn-info-d3-1" onclick="toggleDrawer('d3-1')" class="btn-action btn-info">ℹ️ מידע נוסף</button>
+                                <a href="https://www.google.com/maps/search/?api=1&query=Mainau+Island" target="_blank" class="btn-action btn-nav"><svg class="btn-icon"><use href="#icon-pin"/></svg> ניווט ליעד</a>
+                                <button onclick="askGemini('אי הפרחים מיינאו (Mainau)')" class="btn-action btn-explain"><svg class="btn-icon"><use href="#icon-sparkle"/></svg> לא הבנתי</button>
+                                <button id="btn-info-d3-1" onclick="toggleDrawer('d3-1')" class="btn-action btn-info"><svg class="btn-icon"><use href="#icon-info"/></svg> מידע נוסף</button>
                             </div>
                             <div id="drawer-d3-1" class="info-drawer">
                                 <div class="drawer-inner">
@@ -1156,8 +1328,8 @@
                                     <p><strong>📅 הזמנה מראש:</strong> מומלץ מאוד להזמין כרטיס דיגיטלי מראש באתר הרשמי כדי ליהנות מהנחה קלה ולדלג על תורי הענק בקופות האי.</p>
                                     <p><strong>💡 טיפ אקסקלוסיבי:</strong> אל תפספסו את חממת הפרפרים המקורה (Schmetterlingshaus). הטמפרטורה שם טרופית, והפרפרים הצבעוניים הענקיים עפים ממש ביניכם ונוחתים על המבקרים.</p>
                                     <div class="drawer-links">
-                                        <a href="https://www.mainau.de/de/webcams.html" target="_blank" class="btn-action btn-nav">📹 מצלמת רשת</a>
-                                        <a href="https://www.google.com/search?q=weather+Mainau+Island" target="_blank" class="btn-action btn-explain">🌦️ מזג אוויר</a>
+                                        <a href="https://www.mainau.de/de/webcams.html" target="_blank" class="btn-action btn-nav"><svg class="btn-icon"><use href="#icon-cam"/></svg> מצלמת רשת</a>
+                                        <a href="https://www.google.com/search?q=weather+Mainau+Island" target="_blank" class="btn-action btn-explain"><svg class="btn-icon"><use href="#icon-sun"/></svg> מזג אוויר</a>
                                     </div>
                                 </div>
                             </div>
@@ -1166,9 +1338,9 @@
                             <div class="item-title">מתחם האאוטלט SEEMAXX <a href="https://seemaxx.de/en/home/" target="_blank">אתר רשמי ↗</a></div>
                             <div class="item-desc">חוויית קניות פרימיום בעיירה הסמוכה רדולפצל. מתחם מותגי אופנה והלבשה בינלאומיים במחירים מיוחדים.</div>
                             <div class="item-actions">
-                                <a href="https://www.google.com/maps/search/?api=1&query=seemaxx+Outlet+Center+Radolfzell" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
-                                <button onclick="askGemini('מתחם האאוטלט SEEMAXX')" class="btn-action btn-explain">✨ לא הבנתי</button>
-                                <button id="btn-info-d3-2" onclick="toggleDrawer('d3-2')" class="btn-action btn-info">ℹ️ מידע נוסף</button>
+                                <a href="https://www.google.com/maps/search/?api=1&query=seemaxx+Outlet+Center+Radolfzell" target="_blank" class="btn-action btn-nav"><svg class="btn-icon"><use href="#icon-pin"/></svg> ניווט ליעד</a>
+                                <button onclick="askGemini('מתחם האאוטלט SEEMAXX')" class="btn-action btn-explain"><svg class="btn-icon"><use href="#icon-sparkle"/></svg> לא הבנתי</button>
+                                <button id="btn-info-d3-2" onclick="toggleDrawer('d3-2')" class="btn-action btn-info"><svg class="btn-icon"><use href="#icon-info"/></svg> מידע נוסף</button>
                             </div>
                             <div id="drawer-d3-2" class="info-drawer">
                                 <div class="drawer-inner">
@@ -1176,7 +1348,7 @@
                                     <p><strong>📅 הזמנה מראש:</strong> אין צורך.</p>
                                     <p><strong>💡 טיפ אקסקלוסיבי:</strong> החנייה במקום מוסדרת ונוחה. בקומת הקרקע ישנן חנויות שוקולד בוטיק מובחרות של מותגים מקומיים - מומלץ לעצירת אנרגיה מתוקה.</p>
                                     <div class="drawer-links">
-                                        <a href="https://www.google.com/search?q=weather+Radolfzell" target="_blank" class="btn-action btn-explain">🌦️ מזג אוויר</a>
+                                        <a href="https://www.google.com/search?q=weather+Radolfzell" target="_blank" class="btn-action btn-explain"><svg class="btn-icon"><use href="#icon-sun"/></svg> מזג אוויר</a>
                                     </div>
                                 </div>
                             </div>
@@ -1196,9 +1368,9 @@
                             <div class="item-title">שביל הכדורים (KugelWaldPfad) <a href="https://www.xn--6dbdabdlme8buq6edbk.com/kugelwaldpfad/" target="_blank">מידע ↗</a></div>
                             <div class="item-desc">מסלול יער חווייתי ומהמהנה במיוחד, שבו מגלגלים כדורי עץ לאורך מתקני עץ ומסלולי טבע ייחודיים המשתלבים בנוף היער.</div>
                             <div class="item-actions">
-                                <a href="https://www.google.com/maps/search/?api=1&query=Kugelwaldpfad+Birkendorf" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
-                                <button onclick="askGemini('שביל הכדורים (KugelWaldPfad)')" class="btn-action btn-explain">✨ לא הבנתי</button>
-                                <button id="btn-info-d4-1" onclick="toggleDrawer('d4-1')" class="btn-action btn-info">ℹ️ מידע נוסף</button>
+                                <a href="https://www.google.com/maps/search/?api=1&query=Kugelwaldpfad+Birkendorf" target="_blank" class="btn-action btn-nav"><svg class="btn-icon"><use href="#icon-pin"/></svg> ניווט ליעד</a>
+                                <button onclick="askGemini('שביל הכדורים (KugelWaldPfad)')" class="btn-action btn-explain"><svg class="btn-icon"><use href="#icon-sparkle"/></svg> לא הבנתי</button>
+                                <button id="btn-info-d4-1" onclick="toggleDrawer('d4-1')" class="btn-action btn-info"><svg class="btn-icon"><use href="#icon-info"/></svg> מידע נוסף</button>
                             </div>
                             <div id="drawer-d4-1" class="info-drawer">
                                 <div class="drawer-inner">
@@ -1206,7 +1378,7 @@
                                     <p><strong>📅 הזמנה מראש:</strong> לא נדרש.</p>
                                     <p><strong>💡 טיפ אקסקלוסיבי:</strong> הצטיידו מראש במטבעות של 1 או 2 יורו במזומן עבור המכונות האוטומטיות שבתחילת המסלול, המנפיקות את כדורי העץ הגדולים איתם משחקים לאורך היער (והילדים ייקחו איתם הביתה למזכרת!).</p>
                                     <div class="drawer-links">
-                                        <a href="https://www.google.com/search?q=weather+Uhlingen-Birkendorf" target="_blank" class="btn-action btn-explain">🌦️ מזג אוויר</a>
+                                        <a href="https://www.google.com/search?q=weather+Uhlingen-Birkendorf" target="_blank" class="btn-action btn-explain"><svg class="btn-icon"><use href="#icon-sun"/></svg> מזג אוויר</a>
                                     </div>
                                 </div>
                             </div>
@@ -1215,9 +1387,9 @@
                             <div class="item-title">שטיין אם ריין (Stein am Rhein) <a href="https://www.myswitzerland.com/en/destinations/stein-am-rhein/" target="_blank">שוויץ רשמי ↗</a></div>
                             <div class="item-desc">עיירה שווייצרית ציורית עתיקה על גדות נהר הריין, המפורסמת במבנים המעוטרים בציורי קיר נדירים. נעצר לטיול קצר וארוחת צהריים.</div>
                             <div class="item-actions">
-                                <a href="https://www.google.com/maps/search/?api=1&query=Stein+am+Rhein+Switzerland" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
-                                <button onclick="askGemini('שטיין אם ריין (Stein am Rhein)')" class="btn-action btn-explain">✨ לא הבנתי</button>
-                                <button id="btn-info-d4-2" onclick="toggleDrawer('d4-2')" class="btn-action btn-info">ℹ️ מידע נוסף</button>
+                                <a href="https://www.google.com/maps/search/?api=1&query=Stein+am+Rhein+Switzerland" target="_blank" class="btn-action btn-nav"><svg class="btn-icon"><use href="#icon-pin"/></svg> ניווט ליעד</a>
+                                <button onclick="askGemini('שטיין אם ריין (Stein am Rhein)')" class="btn-action btn-explain"><svg class="btn-icon"><use href="#icon-sparkle"/></svg> לא הבנתי</button>
+                                <button id="btn-info-d4-2" onclick="toggleDrawer('d4-2')" class="btn-action btn-info"><svg class="btn-icon"><use href="#icon-info"/></svg> מידע נוסף</button>
                             </div>
                             <div id="drawer-d4-2" class="info-drawer">
                                 <div class="drawer-inner">
@@ -1225,8 +1397,8 @@
                                     <p><strong>📅 הזמנה מראש:</strong> אין צורך.</p>
                                     <p><strong>💡 טיפ אקסקלוסיבי:</strong> מומלץ לשבת באחד מבתי הקפה או המסלול על כיכר השוק המרכזית (Rathausplatz) כדי לספוג את הארכיטקטורה הציורית בצורה שלווה ויוקרתית.</p>
                                     <div class="drawer-links">
-                                        <a href="https://www.steinamrhein.ch/webcam" target="_blank" class="btn-action btn-nav">📹 מצלמת רשת</a>
-                                        <a href="https://www.google.com/search?q=weather+Stein+am+Rhein" target="_blank" class="btn-action btn-explain">🌦️ מזג אוויר</a>
+                                        <a href="https://www.steinamrhein.ch/webcam" target="_blank" class="btn-action btn-nav"><svg class="btn-icon"><use href="#icon-cam"/></svg> מצלמת רשת</a>
+                                        <a href="https://www.google.com/search?q=weather+Stein+am+Rhein" target="_blank" class="btn-action btn-explain"><svg class="btn-icon"><use href="#icon-sun"/></svg> מזג אוויר</a>
                                     </div>
                                 </div>
                             </div>
@@ -1235,9 +1407,9 @@
                             <div class="item-title">שדה התעופה בציריך <span class="tag tag-critical">לו"ז קריטי</span></div>
                             <div class="item-desc">נוסעים ישירות לשדה התעופה בציריך כדי להוריד את הדר, הממריאה חזרה לישראל בטיסה של השעה 19:15.</div>
                             <div class="item-actions">
-                                <a href="https://www.google.com/maps/search/?api=1&query=Zurich+Airport" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
-                                <button onclick="askGemini('שדה התעופה בציריך')" class="btn-action btn-explain">✨ לא הבנתי</button>
-                                <button id="btn-info-d4-3" onclick="toggleDrawer('d4-3')" class="btn-action btn-info">ℹ️ מידע נוסף</button>
+                                <a href="https://www.google.com/maps/search/?api=1&query=Zurich+Airport" target="_blank" class="btn-action btn-nav"><svg class="btn-icon"><use href="#icon-pin"/></svg> ניווט ליעד</a>
+                                <button onclick="askGemini('שדה התעופה בציריך')" class="btn-action btn-explain"><svg class="btn-icon"><use href="#icon-sparkle"/></svg> לא הבנתי</button>
+                                <button id="btn-info-d4-3" onclick="toggleDrawer('d4-3')" class="btn-action btn-info"><svg class="btn-icon"><use href="#icon-info"/></svg> מידע נוסף</button>
                             </div>
                             <div id="drawer-d4-3" class="info-drawer">
                                 <div class="drawer-inner">
@@ -1245,8 +1417,8 @@
                                     <p><strong>📅 הזמנה מראש:</strong> ודאו שביצעתם עבור הדר צ'ק-אין דיגיטלי מוקדם כדי לייעל את תהליך הפרידה בשדה.</p>
                                     <p><strong>💡 טיפ אקסקלוסיבי:</strong> הגיעו לפחות 3 שעות לפני זמן ההמראה. נמל התעופה של ציריך נוקשה וקפדני מאוד בבדיקות הביטחוניות לטיסות לישראל.</p>
                                     <div class="drawer-links">
-                                        <a href="https://www.flughafen-zuerich.ch/en/passengers/experience/airport-experience/webcams" target="_blank" class="btn-action btn-nav">📹 מצלמת רשת</a>
-                                        <a href="https://www.google.com/search?q=weather+Zurich+Airport" target="_blank" class="btn-action btn-explain">🌦️ מזג אוויר</a>
+                                        <a href="https://www.flughafen-zuerich.ch/en/passengers/experience/airport-experience/webcams" target="_blank" class="btn-action btn-nav"><svg class="btn-icon"><use href="#icon-cam"/></svg> מצלמת רשת</a>
+                                        <a href="https://www.google.com/search?q=weather+Zurich+Airport" target="_blank" class="btn-action btn-explain"><svg class="btn-icon"><use href="#icon-sun"/></svg> מזג אוויר</a>
                                     </div>
                                 </div>
                             </div>
@@ -1274,9 +1446,9 @@
                             <div class="item-title">פארק החיות Tatzmania</div>
                             <div class="item-desc">סיור חצי-יומי (עד השעה 15:00 בערך) בפארק חיות יוקרתי המשלב טורפים גדולים (אריות, טיגריסים, דובים) לצד מתקני שעשועים חווייתיים ומגלשות.</div>
                             <div class="item-actions">
-                                <a href="https://www.google.com/maps/search/?api=1&query=Tatzmania+Loffingen" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
-                                <button onclick="askGemini('פארק החיות Tatzmania')" class="btn-action btn-explain">✨ לא הבנתי</button>
-                                <button id="btn-info-d5-1" onclick="toggleDrawer('d5-1')" class="btn-action btn-info">ℹ️ מידע נוסף</button>
+                                <a href="https://www.google.com/maps/search/?api=1&query=Tatzmania+Loffingen" target="_blank" class="btn-action btn-nav"><svg class="btn-icon"><use href="#icon-pin"/></svg> ניווט ליעד</a>
+                                <button onclick="askGemini('פארק החיות Tatzmania')" class="btn-action btn-explain"><svg class="btn-icon"><use href="#icon-sparkle"/></svg> לא הבנתי</button>
+                                <button id="btn-info-d5-1" onclick="toggleDrawer('d5-1')" class="btn-action btn-info"><svg class="btn-icon"><use href="#icon-info"/></svg> מידע נוסף</button>
                             </div>
                             <div id="drawer-d5-1" class="info-drawer">
                                 <div class="drawer-inner">
@@ -1284,7 +1456,7 @@
                                     <p><strong>📅 הזמנה מראש:</strong> אין חובה קריטית להזמין מראש אונליין, פשוט מציגים את הכרטיס האדום הדיגיטלי בקופות האתר.</p>
                                     <p><strong>💡 טיפ אקסקלוסיבי:</strong> שעות האכלת הטורפים (האריות והטיגריסים) קבועות ומפורסמות בכניסה - מומלץ לברר אותן מיד עם כניסתכם כדי לתזמן את ההגעה למתחם שלהם.</p>
                                     <div class="drawer-links">
-                                        <a href="https://www.google.com/search?q=weather+Tatzmania+Loffingen" target="_blank" class="btn-action btn-explain">🌦️ מזג אוויר</a>
+                                        <a href="https://www.google.com/search?q=weather+Tatzmania+Loffingen" target="_blank" class="btn-action btn-explain"><svg class="btn-icon"><use href="#icon-sun"/></svg> מזג אוויר</a>
                                     </div>
                                 </div>
                             </div>
@@ -1293,9 +1465,9 @@
                             <div class="item-title">חזרה והתארגנות בשלוכזה</div>
                             <div class="item-desc">חזרה מוקדמת למקום האירוח על מנת לנוח, להירגע ולהיערך בצורה מכובדת לקראת כניסת השבת.</div>
                             <div class="item-actions">
-                                <a href="https://www.google.com/maps/search/?api=1&query=Schluchsee" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
-                                <button onclick="askGemini('חזרה והתארגנות בשלוכזה')" class="btn-action btn-explain">✨ לא הבנתי</button>
-                                <button id="btn-info-d5-2" onclick="toggleDrawer('d5-2')" class="btn-action btn-info">ℹ️ מידע נוסף</button>
+                                <a href="https://www.google.com/maps/search/?api=1&query=Schluchsee" target="_blank" class="btn-action btn-nav"><svg class="btn-icon"><use href="#icon-pin"/></svg> ניווט ליעד</a>
+                                <button onclick="askGemini('חזרה והתארגנות בשלוכזה')" class="btn-action btn-explain"><svg class="btn-icon"><use href="#icon-sparkle"/></svg> לא הבנתי</button>
+                                <button id="btn-info-d5-2" onclick="toggleDrawer('d5-2')" class="btn-action btn-info"><svg class="btn-icon"><use href="#icon-info"/></svg> מידע נוסף</button>
                             </div>
                             <div id="drawer-d5-2" class="info-drawer">
                                 <div class="drawer-inner">
@@ -1303,8 +1475,8 @@
                                     <p><strong>📅 הזמנה מראש:</strong> לא רלוונטי.</p>
                                     <p><strong>💡 טיפ אקסקלוסיבי:</strong> נצלו את הזמן לפני סגירת החנויות לביצוע השלמות אחרונות של מצרכים טריים ואוכל מוכן לקראת סעודות השבת המשפחתיות.</p>
                                     <div class="drawer-links">
-                                        <a href="https://www.hochschwarzwald.de/service/webcams/webcam-schluchsee" target="_blank" class="btn-action btn-nav">📹 מצלמת רשת</a>
-                                        <a href="https://www.google.com/search?q=weather+Schluchsee" target="_blank" class="btn-action btn-explain">🌦️ מזג אוויר</a>
+                                        <a href="https://www.hochschwarzwald.de/service/webcams/webcam-schluchsee" target="_blank" class="btn-action btn-nav"><svg class="btn-icon"><use href="#icon-cam"/></svg> מצלמת רשת</a>
+                                        <a href="https://www.google.com/search?q=weather+Schluchsee" target="_blank" class="btn-action btn-explain"><svg class="btn-icon"><use href="#icon-sun"/></svg> מזג אוויר</a>
                                     </div>
                                 </div>
                             </div>
@@ -1332,9 +1504,9 @@
                             <div class="item-title">יום רגוע של שבת קודש</div>
                             <div class="item-desc">מנוחה מוחלטת ברוח היער. טיולים רגליים נינוחים ופסטורליים לאורך גדות האגם הכחול של שלוכזה וזמן איכות משפחתי.</div>
                             <div class="item-actions">
-                                <a href="https://www.google.com/maps/search/?api=1&query=Schluchsee+Lake" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
-                                <button onclick="askGemini('אגם שלוכזה ומנוחה בשבת')" class="btn-action btn-explain">✨ לא הבנתי</button>
-                                <button id="btn-info-d6-1" onclick="toggleDrawer('d6-1')" class="btn-action btn-info">ℹ️ מידע נוסף</button>
+                                <a href="https://www.google.com/maps/search/?api=1&query=Schluchsee+Lake" target="_blank" class="btn-action btn-nav"><svg class="btn-icon"><use href="#icon-pin"/></svg> ניווט ליעד</a>
+                                <button onclick="askGemini('אגם שלוכזה ומנוחה בשבת')" class="btn-action btn-explain"><svg class="btn-icon"><use href="#icon-sparkle"/></svg> לא הבנתי</button>
+                                <button id="btn-info-d6-1" onclick="toggleDrawer('d6-1')" class="btn-action btn-info"><svg class="btn-icon"><use href="#icon-info"/></svg> מידע נוסף</button>
                             </div>
                             <div id="drawer-d6-1" class="info-drawer">
                                 <div class="drawer-inner">
@@ -1342,8 +1514,8 @@
                                     <p><strong>📅 הזמנה מראש:</strong> לא נדרש.</p>
                                     <p><strong>💡 טיפ אקסקלוסיבי:</strong> שביל הטיילת המרכזי סביב חלקו המערבי של האגם נגיש, מישורי לחלוטין ומציע נקודות מנוחה וספסלי עץ יוקרתיים מול קו המים הטהור.</p>
                                     <div class="drawer-links">
-                                        <a href="https://www.hochschwarzwald.de/service/webcams/webcam-schluchsee" target="_blank" class="btn-action btn-nav">📹 מצלמת רשת</a>
-                                        <a href="https://www.google.com/search?q=weather+Schluchsee" target="_blank" class="btn-action btn-explain">🌦️ מזג אוויר</a>
+                                        <a href="https://www.hochschwarzwald.de/service/webcams/webcam-schluchsee" target="_blank" class="btn-action btn-nav"><svg class="btn-icon"><use href="#icon-cam"/></svg> מצלמת רשת</a>
+                                        <a href="https://www.google.com/search?q=weather+Schluchsee" target="_blank" class="btn-action btn-explain"><svg class="btn-icon"><use href="#icon-sun"/></svg> מזג אוויר</a>
                                     </div>
                                 </div>
                             </div>
@@ -1363,9 +1535,9 @@
                             <div class="item-title">הר הפלדברג (Feldberg) <a href="https://www.feldberg-erlebnis.de/en" target="_blank">אתר רשמי ↗</a></div>
                             <div class="item-desc">ההעפלה אל ההר הגבוה ביותר ביער השחור. עולים ברכבל החדיש אל הפסגה, מבקרים במגדל התצפית הפנורמי ובוחרים במסלול הליכה בטבע.</div>
                             <div class="item-actions">
-                                <a href="https://www.google.com/maps/search/?api=1&query=Feldberg+Black+Forest" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
-                                <button onclick="askGemini('הר הפלדברג (Feldberg)')" class="btn-action btn-explain">✨ לא הבנתי</button>
-                                <button id="btn-info-d7-1" onclick="toggleDrawer('d7-1')" class="btn-action btn-info">ℹ️ מידע נוסף</button>
+                                <a href="https://www.google.com/maps/search/?api=1&query=Feldberg+Black+Forest" target="_blank" class="btn-action btn-nav"><svg class="btn-icon"><use href="#icon-pin"/></svg> ניווט ליעד</a>
+                                <button onclick="askGemini('הר הפלדברג (Feldberg)')" class="btn-action btn-explain"><svg class="btn-icon"><use href="#icon-sparkle"/></svg> לא הבנתי</button>
+                                <button id="btn-info-d7-1" onclick="toggleDrawer('d7-1')" class="btn-action btn-info"><svg class="btn-icon"><use href="#icon-info"/></svg> מידע נוסף</button>
                             </div>
                             <div id="drawer-d7-1" class="info-drawer">
                                 <div class="drawer-inner">
@@ -1373,8 +1545,8 @@
                                     <p><strong>📅 הזמנה מראש:</strong> אין צורך להזמין מקום מראש, סורקים ישירות את הברקוד בשערי הרכבל.</p>
                                     <p><strong>💡 טיפ אקסקלוסיבי:</strong> עלו למרומי מגדל התצפית (Feldbergturm) שנמצא בפסגה - בימים בהירים הראות מגיעה משם עד להרי האלפים השווייצריים המושלגים.</p>
                                     <div class="drawer-links">
-                                        <a href="https://www.feldberg-erlebnis.de/en/service/webcams" target="_blank" class="btn-action btn-nav">📹 מצלמת רשת</a>
-                                        <a href="https://www.google.com/search?q=weather+Feldberg+Black+Forest" target="_blank" class="btn-action btn-explain">🌦️ מזג אוויר</a>
+                                        <a href="https://www.feldberg-erlebnis.de/en/service/webcams" target="_blank" class="btn-action btn-nav"><svg class="btn-icon"><use href="#icon-cam"/></svg> מצלמת רשת</a>
+                                        <a href="https://www.google.com/search?q=weather+Feldberg+Black+Forest" target="_blank" class="btn-action btn-explain"><svg class="btn-icon"><use href="#icon-sun"/></svg> מזג אוויר</a>
                                     </div>
                                 </div>
                             </div>
@@ -1385,6 +1557,15 @@
         </div>
 
         <div class="part-header" id="part2">
+            <div class="part-ornament" aria-hidden="true">
+                <span class="orn-line"></span>
+                <svg class="orn-mark" width="34" height="8" viewBox="0 0 40 8" fill="currentColor">
+                    <circle cx="8" cy="4" r="1"/>
+                    <path d="M20 0 L23.5 4 L20 8 L16.5 4 Z"/>
+                    <circle cx="32" cy="4" r="1"/>
+                </svg>
+                <span class="orn-line"></span>
+            </div>
             <span>חלק ב׳</span>
             <h2>מעבר מדינה וריגושים ברינגסהיים</h2>
         </div>
@@ -1401,9 +1582,9 @@
                             <div class="item-title">צ'ק-אאוט ונפרדים משלוכזה</div>
                             <div class="item-desc">עזיבת הדירה הדרומית ונסיעה חלקה לכיוון חבל אלזס בצרפת.</div>
                             <div class="item-actions">
-                                <a href="https://www.google.com/maps/search/?api=1&query=Schluchsee" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
-                                <button onclick="askGemini('צ\'ק-אאוט ונפרדים משלוכזה')" class="btn-action btn-explain">✨ לא הבנתי</button>
-                                <button id="btn-info-d8-1" onclick="toggleDrawer('d8-1')" class="btn-action btn-info">ℹ️ מידע נוסף</button>
+                                <a href="https://www.google.com/maps/search/?api=1&query=Schluchsee" target="_blank" class="btn-action btn-nav"><svg class="btn-icon"><use href="#icon-pin"/></svg> ניווט ליעד</a>
+                                <button onclick="askGemini('צ\'ק-אאוט ונפרדים משלוכזה')" class="btn-action btn-explain"><svg class="btn-icon"><use href="#icon-sparkle"/></svg> לא הבנתי</button>
+                                <button id="btn-info-d8-1" onclick="toggleDrawer('d8-1')" class="btn-action btn-info"><svg class="btn-icon"><use href="#icon-info"/></svg> מידע נוסף</button>
                             </div>
                             <div id="drawer-d8-1" class="info-drawer">
                                 <div class="drawer-inner">
@@ -1411,8 +1592,8 @@
                                     <p><strong>📅 הזמנה מראש:</strong> תאמו מראש עם המארח את שעת עזיבת המפתח ויציאה לדרך.</p>
                                     <p><strong>💡 טיפ אקסקלוסיבי:</strong> הדרך מחבל דרום היער השחור לצרפת מרהיבה ועוברת דרך כבישים נופיים משתנים - מומלץ להכין פלייליסט נסיעה משפחתי מעולה לרכב המנהלים.</p>
                                     <div class="drawer-links">
-                                        <a href="https://www.hochschwarzwald.de/service/webcams/webcam-schluchsee" target="_blank" class="btn-action btn-nav">📹 מצלמת רשת</a>
-                                        <a href="https://www.google.com/search?q=weather+Schluchsee" target="_blank" class="btn-action btn-explain">🌦️ מזג אוויר</a>
+                                        <a href="https://www.hochschwarzwald.de/service/webcams/webcam-schluchsee" target="_blank" class="btn-action btn-nav"><svg class="btn-icon"><use href="#icon-cam"/></svg> מצלמת רשת</a>
+                                        <a href="https://www.google.com/search?q=weather+Schluchsee" target="_blank" class="btn-action btn-explain"><svg class="btn-icon"><use href="#icon-sun"/></svg> מזג אוויר</a>
                                     </div>
                                 </div>
                             </div>
@@ -1425,9 +1606,9 @@
                                 • <strong>מוזיאון הרכבות Cité du Train:</strong> <a href="https://www.citedutrain.com/" target="_blank">אתר רשמי ↗</a> - תצוגת רכבות היסטוריות וקרונות מלכותיים.
                             </div>
                             <div class="item-actions">
-                                <a href="https://www.google.com/maps/search/?api=1&query=Mulhouse+France" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
-                                <button onclick="askGemini('מוזיאונים בעיר מולהאוס Mulhouse')" class="btn-action btn-explain">✨ לא הבנתי</button>
-                                <button id="btn-info-d8-2" onclick="toggleDrawer('d8-2')" class="btn-action btn-info">ℹ️ מידע נוסף</button>
+                                <a href="https://www.google.com/maps/search/?api=1&query=Mulhouse+France" target="_blank" class="btn-action btn-nav"><svg class="btn-icon"><use href="#icon-pin"/></svg> ניווט ליעד</a>
+                                <button onclick="askGemini('מוזיאונים בעיר מולהאוס Mulhouse')" class="btn-action btn-explain"><svg class="btn-icon"><use href="#icon-sparkle"/></svg> לא הבנתי</button>
+                                <button id="btn-info-d8-2" onclick="toggleDrawer('d8-2')" class="btn-action btn-info"><svg class="btn-icon"><use href="#icon-info"/></svg> מידע נוסף</button>
                             </div>
                             <div id="drawer-d8-2" class="info-drawer">
                                 <div class="drawer-inner">
@@ -1435,7 +1616,7 @@
                                     <p><strong>📅 הזמנה מראש:</strong> אין חובת רכישה מוקדמת קריטית, ניתן לרכוש כרטיסים בקופות בכניסה בצורה חלקה.</p>
                                     <p><strong>💡 טיפ אקסקלוסיבי:</strong> מוזיאון המכוניות (Cité de l'Automobile) נחשב ליצירת מופת מוטורית ברמה בינלאומית ומומלץ במיוחד לחובבי עיצוב יוקרתי, אסתטיקה קלאסית והיסטוריה הנדסית.</p>
                                     <div class="drawer-links">
-                                        <a href="https://www.google.com/search?q=weather+Mulhouse+France" target="_blank" class="btn-action btn-explain">🌦️ מזג אוויר</a>
+                                        <a href="https://www.google.com/search?q=weather+Mulhouse+France" target="_blank" class="btn-action btn-explain"><svg class="btn-icon"><use href="#icon-sun"/></svg> מזג אוויר</a>
                                     </div>
                                 </div>
                             </div>
@@ -1444,9 +1625,9 @@
                             <div class="item-title">הגעה לדירה ברינגסהיים • Hauptstraße 22</div>
                             <div class="item-desc">התמקמות בדירת האירוח החדשה שלכם ברחוב Hauptstraße 22, רינגסהיים - דקות ספורות מפארק אירופה.</div>
                             <div class="item-actions">
-                                <a href="https://www.google.com/maps/search/?api=1&query=Hauptstra%C3%9Fe+22+Ringsheim" target="_blank" class="btn-action btn-nav">📍 ניווט לדירה</a>
-                                <button onclick="askGemini('העיירה רינגסהיים (Ringsheim)')" class="btn-action btn-explain">✨ לא הבנתי</button>
-                                <button id="btn-info-d8-3" onclick="toggleDrawer('d8-3')" class="btn-action btn-info">ℹ️ מידע נוסף</button>
+                                <a href="https://www.google.com/maps/search/?api=1&query=Hauptstra%C3%9Fe+22+Ringsheim" target="_blank" class="btn-action btn-nav"><svg class="btn-icon"><use href="#icon-pin"/></svg> ניווט לדירה</a>
+                                <button onclick="askGemini('העיירה רינגסהיים (Ringsheim)')" class="btn-action btn-explain"><svg class="btn-icon"><use href="#icon-sparkle"/></svg> לא הבנתי</button>
+                                <button id="btn-info-d8-3" onclick="toggleDrawer('d8-3')" class="btn-action btn-info"><svg class="btn-icon"><use href="#icon-info"/></svg> מידע נוסף</button>
                             </div>
                             <div id="drawer-d8-3" class="info-drawer">
                                 <div class="drawer-inner">
@@ -1454,7 +1635,7 @@
                                     <p><strong>📅 הזמנה מראש:</strong> ודאו שקיבלתם מראש קוד כניסה או הנחיות הגעה דיגיטליות מהמלון/דירה שלכם ברינגסהיים.</p>
                                     <p><strong>💡 טיפ אקסקלוסיבי:</strong> העיירה שקטה, פסטורלית ויוקרתית. מומלץ לאתר מראש מסעדה מקומית טובה לארוחת ערב רגועה לקראת היום האינטנסיבי של מחר בפארק.</p>
                                     <div class="drawer-links">
-                                        <a href="https://www.google.com/search?q=weather+Ringsheim" target="_blank" class="btn-action btn-explain">🌦️ מזג אוויר</a>
+                                        <a href="https://www.google.com/search?q=weather+Ringsheim" target="_blank" class="btn-action btn-explain"><svg class="btn-icon"><use href="#icon-sun"/></svg> מזג אוויר</a>
                                     </div>
                                 </div>
                             </div>
@@ -1474,9 +1655,9 @@
                             <div class="item-title">פארק אירופה (Europa-Park) <a href="https://www.europa-park.co.il/" target="_blank">כרטיסים ↗</a></div>
                             <div class="item-desc">יום שלם ומטורף בפארק השעשועים המוביל והטוב בעולם. מתחמים מעוצבים לפי מדינות, רכבות הרים שוברות שיאים וחוויה בלתי נשכחת לכל גיל.</div>
                             <div class="item-actions">
-                                <a href="https://www.google.com/maps/search/?api=1&query=Europa-Park+Rust" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
-                                <button onclick="askGemini('פארק אירופה (Europa-Park)')" class="btn-action btn-explain">✨ לא הבנתי</button>
-                                <button id="btn-info-d9-1" onclick="toggleDrawer('d9-1')" class="btn-action btn-info">ℹ️ מידע נוסף</button>
+                                <a href="https://www.google.com/maps/search/?api=1&query=Europa-Park+Rust" target="_blank" class="btn-action btn-nav"><svg class="btn-icon"><use href="#icon-pin"/></svg> ניווט ליעד</a>
+                                <button onclick="askGemini('פארק אירופה (Europa-Park)')" class="btn-action btn-explain"><svg class="btn-icon"><use href="#icon-sparkle"/></svg> לא הבנתי</button>
+                                <button id="btn-info-d9-1" onclick="toggleDrawer('d9-1')" class="btn-action btn-info"><svg class="btn-icon"><use href="#icon-info"/></svg> מידע נוסף</button>
                             </div>
                             <div id="drawer-d9-1" class="info-drawer">
                                 <div class="drawer-inner">
@@ -1484,7 +1665,7 @@
                                     <p><strong>📅 הזמנה מראש:</strong> ⚠️ **חובה קריטית וחד משמעית!** יש להזמין ולשריין כרטיסים ותאריך כניסה מראש חודשים לפני הטיול! הפארק מגיע לתפוסה מלאה בקיץ ואין מכירת כרטיסים פיזית בקופות במידה והמלאי אזל.</p>
                                     <p><strong>💡 טיפ אקסקלוסיבי:</strong> הורידו מראש את האפליקציה הרשמית של Europa-Park והשתמשו בפיצ'ר ה-VirtualLine המאפשר לכם להזמין "תור וירטואלי" חינמי לרכבות ההרים המובילות, ובכך לחסוך עמידה ממושכת בתורים הפיזיים.</p>
                                     <div class="drawer-links">
-                                        <a href="https://www.google.com/search?q=weather+Europa+Park+Rust" target="_blank" class="btn-action btn-explain">🌦️ מזג אוויר</a>
+                                        <a href="https://www.google.com/search?q=weather+Europa+Park+Rust" target="_blank" class="btn-action btn-explain"><svg class="btn-icon"><use href="#icon-sun"/></svg> מזג אוויר</a>
                                     </div>
                                 </div>
                             </div>
@@ -1504,9 +1685,9 @@
                             <div class="item-title">נסיעה לכיוון שווייץ</div>
                             <div class="item-desc">קמים בבוקר בנחת, מתארגנים ויוצאים בנסיעה חזרה לכיוון שדה התעופה בציריך.</div>
                             <div class="item-actions">
-                                <a href="https://www.google.com/maps/search/?api=1&query=Zurich+Airport" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
-                                <button onclick="askGemini('נסיעה חזרה מגרמניה לציריך')" class="btn-action btn-explain">✨ לא הבנתי</button>
-                                <button id="btn-info-d10-1" onclick="toggleDrawer('d10-1')" class="btn-action btn-info">ℹ️ מידע נוסף</button>
+                                <a href="https://www.google.com/maps/search/?api=1&query=Zurich+Airport" target="_blank" class="btn-action btn-nav"><svg class="btn-icon"><use href="#icon-pin"/></svg> ניווט ליעד</a>
+                                <button onclick="askGemini('נסיעה חזרה מגרמניה לציריך')" class="btn-action btn-explain"><svg class="btn-icon"><use href="#icon-sparkle"/></svg> לא הבנתי</button>
+                                <button id="btn-info-d10-1" onclick="toggleDrawer('d10-1')" class="btn-action btn-info"><svg class="btn-icon"><use href="#icon-info"/></svg> מידע נוסף</button>
                             </div>
                             <div id="drawer-d10-1" class="info-drawer">
                                 <div class="drawer-inner">
@@ -1514,7 +1695,7 @@
                                     <p><strong>📅 הזמנה מראש:</strong> לא נדרש.</p>
                                     <p><strong>💡 טיפ אקסקלוסיבי:</strong> קחו מרווח ביטחון של שעה מעבר למתוכנן בגלל עומסי תנועה או פקקים לא צפויים באוטובאנים הגרמניים המרכזיים המובילים דרומה לכיוון הגבול השווייצרי.</p>
                                     <div class="drawer-links">
-                                        <a href="https://www.google.com/search?q=weather+Zurich" target="_blank" class="btn-action btn-explain">🌦️ מזג אוויר</a>
+                                        <a href="https://www.google.com/search?q=weather+Zurich" target="_blank" class="btn-action btn-explain"><svg class="btn-icon"><use href="#icon-sun"/></svg> מזג אוויר</a>
                                     </div>
                                 </div>
                             </div>
@@ -1523,9 +1704,9 @@
                             <div class="item-title">החזרת הרכב בשדה התעופה <span class="tag tag-critical">12:00 בצהריים</span></div>
                             <div class="item-desc">הגעה מתוזמנת למתחם חברות ההשכרה בשדה התעופה בציריך והזדכות על הרכב סביב השעה 12:00.</div>
                             <div class="item-actions">
-                                <a href="https://www.google.com/maps/search/?api=1&query=Zurich+Airport+Car+Return" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
-                                <button onclick="askGemini('החזרת רכב שכור בשדה התעופה בציריך')" class="btn-action btn-explain">✨ לא הבנתי</button>
-                                <button id="btn-info-d10-2" onclick="toggleDrawer('d10-2')" class="btn-action btn-info">ℹ️ מידע נוסף</button>
+                                <a href="https://www.google.com/maps/search/?api=1&query=Zurich+Airport+Car+Return" target="_blank" class="btn-action btn-nav"><svg class="btn-icon"><use href="#icon-pin"/></svg> ניווט ליעד</a>
+                                <button onclick="askGemini('החזרת רכב שכור בשדה התעופה בציריך')" class="btn-action btn-explain"><svg class="btn-icon"><use href="#icon-sparkle"/></svg> לא הבנתי</button>
+                                <button id="btn-info-d10-2" onclick="toggleDrawer('d10-2')" class="btn-action btn-info"><svg class="btn-icon"><use href="#icon-info"/></svg> מידע נוסף</button>
                             </div>
                             <div id="drawer-d10-2" class="info-drawer">
                                 <div class="drawer-inner">
@@ -1533,8 +1714,8 @@
                                     <p><strong>📅 הזמנה מראש:</strong> ודאו ששעת ההחזרה תואמת את חוזה השכירות שלכם מול החברה.</p>
                                     <p><strong>💡 טיפ אקסקלוסיבי:</strong> הקפידו לתדלק את הרכב למיכל מלא לחלוטין בתחנת הדלק האחרונה ממש לפני הכניסה למתחם השדה, כדי למנוע עמלות תדלוק מופקעות מצד חברת ההשכרה.</p>
                                     <div class="drawer-links">
-                                        <a href="https://www.flughafen-zuerich.ch/en/passengers/experience/airport-experience/webcams" target="_blank" class="btn-action btn-nav">📹 מצלמת רשת</a>
-                                        <a href="https://www.google.com/search?q=weather+Zurich+Airport" target="_blank" class="btn-action btn-explain">🌦️ מזג אוויר</a>
+                                        <a href="https://www.flughafen-zuerich.ch/en/passengers/experience/airport-experience/webcams" target="_blank" class="btn-action btn-nav"><svg class="btn-icon"><use href="#icon-cam"/></svg> מצלמת רשת</a>
+                                        <a href="https://www.google.com/search?q=weather+Zurich+Airport" target="_blank" class="btn-action btn-explain"><svg class="btn-icon"><use href="#icon-sun"/></svg> מזג אוויר</a>
                                     </div>
                                 </div>
                             </div>
@@ -1543,9 +1724,9 @@
                             <div class="item-title">טיסה חזרה לישראל</div>
                             <div class="item-desc">מעבירים את הזמן בדיוטי פרי היוקרתי של שדה התעופה לקראת המראת הטיסה שלכם חזרה הביתה ב-19:15.</div>
                             <div class="item-actions">
-                                <a href="https://www.google.com/maps/search/?api=1&query=Zurich+Airport+Departures" target="_blank" class="btn-action btn-nav">📍 ניווט ליעד</a>
-                                <button onclick="askGemini('טיסה חזרה מציריך לישראל')" class="btn-action btn-explain">✨ לא הבנתי</button>
-                                <button id="btn-info-d10-3" onclick="toggleDrawer('d10-3')" class="btn-action btn-info">ℹ️ מידע נוסף</button>
+                                <a href="https://www.google.com/maps/search/?api=1&query=Zurich+Airport+Departures" target="_blank" class="btn-action btn-nav"><svg class="btn-icon"><use href="#icon-pin"/></svg> ניווט ליעד</a>
+                                <button onclick="askGemini('טיסה חזרה מציריך לישראל')" class="btn-action btn-explain"><svg class="btn-icon"><use href="#icon-sparkle"/></svg> לא הבנתי</button>
+                                <button id="btn-info-d10-3" onclick="toggleDrawer('d10-3')" class="btn-action btn-info"><svg class="btn-icon"><use href="#icon-info"/></svg> מידע נוסף</button>
                             </div>
                             <div id="drawer-d10-3" class="info-drawer">
                                 <div class="drawer-inner">
@@ -1553,8 +1734,8 @@
                                     <p><strong>📅 הזמנה מראש:</strong> בצעו צ'ק-אין דיגיטלי מוקדם ושמרו את כרטיסי העלייה למטוס בטלפונים.</p>
                                     <p><strong>💡 טיפ אקסקלוסיבי:</strong> בטרמינל E של שדה התעופה בציריך ישנן מרפסות תצפית מעוצבות ומרשימות על מסלולי ההמראה - דרך נהדרת ונינוחה להעביר בה את הדקות האחרונות לפני הטיסה לישראל ולסכם את החופשה המשפחתית.</p>
                                     <div class="drawer-links">
-                                        <a href="https://www.flughafen-zuerich.ch/en/passengers/experience/airport-experience/webcams" target="_blank" class="btn-action btn-nav">📹 מצלמת רשת</a>
-                                        <a href="https://www.google.com/search?q=weather+Zurich+Airport" target="_blank" class="btn-action btn-explain">🌦️ מזג אוויר</a>
+                                        <a href="https://www.flughafen-zuerich.ch/en/passengers/experience/airport-experience/webcams" target="_blank" class="btn-action btn-nav"><svg class="btn-icon"><use href="#icon-cam"/></svg> מצלמת רשת</a>
+                                        <a href="https://www.google.com/search?q=weather+Zurich+Airport" target="_blank" class="btn-action btn-explain"><svg class="btn-icon"><use href="#icon-sun"/></svg> מזג אוויר</a>
                                     </div>
                                 </div>
                             </div>
@@ -1565,6 +1746,15 @@
         </div>
 
         <div class="part-header" id="map-section">
+            <div class="part-ornament" aria-hidden="true">
+                <span class="orn-line"></span>
+                <svg class="orn-mark" width="34" height="8" viewBox="0 0 40 8" fill="currentColor">
+                    <circle cx="8" cy="4" r="1"/>
+                    <path d="M20 0 L23.5 4 L20 8 L16.5 4 Z"/>
+                    <circle cx="32" cy="4" r="1"/>
+                </svg>
+                <span class="orn-line"></span>
+            </div>
             <span>סקירה גאוגרפית</span>
             <h2>מפת היער השחור והאטרקציות</h2>
         </div>
@@ -1659,6 +1849,10 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
+        // תבניות SVG לשימוש חוזר בסקריפט
+        const INFO_ICON_OPEN = '<svg class="btn-icon"><use href="#icon-info"/></svg> מידע נוסף';
+        const INFO_ICON_CLOSE = '<svg class="btn-icon"><use href="#icon-chevron-up"/></svg> סגור מידע';
+
         // הנפשת פתיחת וסגירת מגירות המידע הנוסף
         function toggleDrawer(id) {
             const drawer = document.getElementById('drawer-' + id);
@@ -1666,14 +1860,50 @@
 
             if (drawer.classList.contains('open')) {
                 drawer.classList.remove('open');
-                btn.innerHTML = 'ℹ️ מידע נוסף';
+                btn.innerHTML = INFO_ICON_OPEN;
             } else {
                 drawer.classList.add('open');
-                btn.innerHTML = '🔼 סגור מידע';
+                btn.innerHTML = INFO_ICON_CLOSE;
             }
             // מונע הישארות של מצב hover/focus על הכפתור לאחר לחיצה (בעיקר במגע)
             btn.blur();
         }
+
+        // טיימר ספירה לאחור עד יום ההמראה (17.8.2026 בבוקר, שעון ישראל)
+        (function initCountdown() {
+            const targetDate = new Date('2026-08-17T00:00:00+03:00').getTime();
+            const el = {
+                container: document.getElementById('countdown'),
+                days: document.getElementById('cd-days'),
+                hrs: document.getElementById('cd-hrs'),
+                mins: document.getElementById('cd-mins'),
+                secs: document.getElementById('cd-secs')
+            };
+            if (!el.container) return;
+
+            function pad(n) { return String(n).padStart(2, '0'); }
+
+            function tick() {
+                const diff = targetDate - Date.now();
+                if (diff <= 0) {
+                    el.container.style.display = 'none';
+                    return true;
+                }
+                const d = Math.floor(diff / 86400000);
+                const h = Math.floor((diff % 86400000) / 3600000);
+                const m = Math.floor((diff % 3600000) / 60000);
+                const s = Math.floor((diff % 60000) / 1000);
+                el.days.textContent = pad(d);
+                el.hrs.textContent = pad(h);
+                el.mins.textContent = pad(m);
+                el.secs.textContent = pad(s);
+                return false;
+            }
+
+            if (!tick()) {
+                setInterval(tick, 1000);
+            }
+        })();
 
         document.addEventListener("DOMContentLoaded", function() {
             const elementsToReveal = document.querySelectorAll('.day-block, .map-container-card');
