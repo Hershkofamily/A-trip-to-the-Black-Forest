@@ -7,7 +7,7 @@
  * מריצים קוד של אתר סגור, לא באייפון ולא באנדרואיד.
  */
 
-const CACHE = 'black-forest-2026-v1';
+const CACHE = 'black-forest-2026-v2';
 const TRIP_END = new Date('2026-08-26T19:00:00+02:00').getTime();
 
 // נשמרים מיד בהתקנה. שאר הקבצים (תמונות, פונטים) נשמרים תוך כדי גלישה.
@@ -76,11 +76,40 @@ self.addEventListener('fetch', event => {
         return;
     }
 
+    // ------------------------------------------------------------------
+    // דף ה-HTML עצמו: רשת קודם.
+    //
+    // הקובץ שוקל כ-21KB — זניח. אין שום סיבה להגיש גרסה ישנה מהמטמון
+    // כשיש רשת, וזה בדיוק מה שגרם לעדכונים לא להופיע. כשאין רשת,
+    // נופלים בחזרה לעותק השמור והאתר עדיין עובד לגמרי.
+    // ------------------------------------------------------------------
+    if (req.mode === 'navigate' || req.destination === 'document') {
+        event.respondWith((async () => {
+            try {
+                const fresh = await fetch(req);
+                if (fresh && fresh.status === 200) {
+                    const copy = fresh.clone();
+                    caches.open(CACHE).then(c => c.put(req, copy)).catch(() => {});
+                }
+                return fresh;
+            } catch (e) {
+                const cached = await caches.match(req)
+                            || await caches.match('./index.html')
+                            || await caches.match('./');
+                if (cached) return cached;
+                return Response.error();
+            }
+        })());
+        return;
+    }
+
+    // ------------------------------------------------------------------
+    // כל השאר (תמונות, פונטים, ספריות): מטמון קודם.
+    // אלה שוקלים 2.3 מגה ולא משתנים כמעט לעולם — בדיוק ההפך מה-HTML.
+    // ------------------------------------------------------------------
     event.respondWith((async () => {
         const cached = await caches.match(req);
 
-        // רענון ברקע — המבקר מקבל מיד את העותק השמור,
-        // והגרסה החדשה תופיע בביקור הבא.
         const network = fetch(req).then(res => {
             // status 0 = תגובה אטומה (תמונות מדומיין אחר) — עדיין שווה לשמור
             if (res && (res.status === 200 || res.type === 'opaque')) {
@@ -96,14 +125,7 @@ self.addEventListener('fetch', event => {
         }
 
         const fresh = await network;
-        if (fresh) return fresh;
-
-        // אין רשת ואין עותק שמור — מחזירים את דף הבית אם זו בקשת ניווט
-        if (req.mode === 'navigate') {
-            const home = await caches.match('./index.html') || await caches.match('./');
-            if (home) return home;
-        }
-        return Response.error();
+        return fresh || Response.error();
     })());
 });
 
