@@ -14,7 +14,21 @@ const TRIP_END = new Date('2026-08-26T19:00:00+02:00').getTime();
 const CORE = ['./', './index.html'];
 
 // אלה אף פעם לא נשמרים — הם חייבים רשת חיה ואין טעם לשמור אותם.
-const NEVER_CACHE = /google\.com\/maps\/embed|gemini\.google\.com|google\.com\/search/;
+//
+// שימו לב במיוחד לכתובות של Firebase: הרשימות המשותפות לא נשמרות במכשיר
+// בכוונה תחילה. רשימה שמורה היא רשימה שקרית — היא תציג מצב מלפני ימים
+// והמשתמש לא יידע. עדיף להציג "אין חיבור" מאשר מידע שגוי.
+// (הערה: Firebase עובד ברובו על WebSocket, שממילא לא עובר דרך ה-Service
+//  Worker כלל. החסימה כאן מכסה את המקרים שבהם הוא נופל ל-long-polling.)
+const NEVER_CACHE = new RegExp([
+    'google\\.com/maps/embed',
+    'gemini\\.google\\.com',
+    'google\\.com/search',
+    'firebaseio\\.com',
+    'firebasedatabase\\.app',
+    'googleapis\\.com/identitytoolkit',
+    'securetoken\\.googleapis\\.com'
+].join('|'));
 
 function expired() {
     return Date.now() > TRIP_END;
