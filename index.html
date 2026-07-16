@@ -172,7 +172,11 @@
         }
 
         header {
+            /* dvh = הגובה הנראה בפועל. במובייל 100vh כולל את השטח שמאחורי
+               סרגל הדפדפן, ולכן מה שיושב בתחתית נופל מתחת לקו הראייה.
+               השורה הראשונה היא נפילה לאחור לדפדפנים ישנים. */
             height: calc(100vh - 70px);
+            height: calc(100dvh - 70px);
             background: linear-gradient(rgba(15, 36, 29, 0.75), rgba(17, 17, 17, 0.85)), 
                         url('https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=1200') no-repeat center center/cover;
             display: flex;
@@ -209,7 +213,7 @@
 
         .scroll-down {
             position: absolute;
-            bottom: 40px;
+            bottom: 66px;
             font-size: 0.85rem;
             letter-spacing: 2px;
             color: var(--luxury-gold);
@@ -1413,7 +1417,7 @@
         /* רמז ההחלקה בדף השער */
         .swipe-hint {
             position: absolute;
-            bottom: 96px;
+            bottom: 122px;
             left: 0; right: 0;
             display: flex;
             align-items: center;
@@ -1426,22 +1430,17 @@
             text-transform: uppercase;
             opacity: 0.45;
             pointer-events: none;
-            /* שלוש תנודות בטעינה ואז מנוחה. אנימציה אינסופית כאן התנגשה
-               עם החץ המקפץ שמתחתיה — שני צירים בקצבים שלא מסתנכרנים
-               גרמו לדף השער להרגיש רועד. */
-            animation: swipeNudge 2.8s ease-in-out 3;
+            /* בלי אנימציה בכוונה: תנועה אינסופית כאן התנגשה עם החץ המקפץ
+               שמתחתיה — שני צירים בקצבים שלא מסתנכרנים גרמו לדף השער
+               להרגיש רועד. */
             transition: opacity 0.4s ease;
         }
 
         .swipe-hint.armed { opacity: 0.9; }
 
-        @keyframes swipeNudge {
-            0%, 100% { transform: translateX(0); }
-            50% { transform: translateX(-8px); }
-        }
-
         @media (max-width: 480px) {
-            .swipe-hint { bottom: 82px; font-size: 0.54rem; letter-spacing: 0.16em; }
+            .swipe-hint { bottom: 108px; font-size: 0.54rem; letter-spacing: 0.16em; }
+            .scroll-down { bottom: 58px; }
             .lp-body { padding: 12px 12px 26px; }
         }
 
