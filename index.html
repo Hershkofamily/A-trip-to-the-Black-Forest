@@ -136,6 +136,27 @@
             -webkit-font-smoothing: antialiased;
             padding-top: 70px;
             transition: background-color 0.5s ease, color 0.5s ease;
+
+            /* הלחיצה הארוכה חיה על כל שטח העמוד, ולכן הטלפון פירש אותה
+               גם כלחיצה ארוכה על טקסט: בחירה, ידיות גרירה ותפריט
+               "חפש בגוגל" שקפצו באמצע הגֶסטה וקטעו אותה. השורה הראשונה
+               מבטלת את התפריט של ספארי, השתיים שאחריה את הבחירה עצמה
+               (וזו גם מה שמונע את התפריט באנדרואיד). */
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        /* מחזירים בחירת טקסט היכן שהיא נחוצה באמת. ה-textarea כאן אינו
+           תיאורטי: העתקת הפרומפט בדפדפנים בלי clipboard API נשענת על
+           textarea זמני שנוצר בקוד, ו-execCommand('copy') חייב להצליח
+           לסמן בתוכו — בלי החריג הזה ההעתקה הייתה נשברת בשקט. */
+        input,
+        textarea,
+        .prompt-preview-box {
+            -webkit-touch-callout: default;
+            -webkit-user-select: text;
+            user-select: text;
         }
 
         /* תפריט ניווט דביק ויוקרתי */
@@ -191,9 +212,15 @@
         header {
             /* dvh = הגובה הנראה בפועל. במובייל 100vh כולל את השטח שמאחורי
                סרגל הדפדפן, ולכן מה שיושב בתחתית נופל מתחת לקו הראייה.
-               השורה הראשונה היא נפילה לאחור לדפדפנים ישנים. */
+               השורה הראשונה היא נפילה לאחור לדפדפנים ישנים.
+
+               ה-14px הנוספים הם כיסוי-יתר מכוון. dvh מתעדכן רק אחרי
+               שסרגל הדפדפן מסיים להיסוג, ובפער שבין הרגעים האלה נחשפה
+               רצועת קרם דקה מתחת לשער. עכשיו הקו הזהוב יושב ממש מתחת
+               לקו הראייה וחוזר בנגיעת הגלילה הראשונה.
+               בנפילה לאחור אין צורך: 100vh ממילא מודד את השטח המלא. */
             height: calc(100vh - 70px);
-            height: calc(100dvh - 70px);
+            height: calc(100dvh - 70px + 14px);
             background: linear-gradient(rgba(15, 36, 29, 0.75), rgba(17, 17, 17, 0.85)), 
                         url('https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=1200') no-repeat center center/cover;
             display: flex;
@@ -1547,7 +1574,12 @@
         }
         .sheet-opt.on .sheet-tick { display: flex; }
 
-        /* טבעת שמאשרת שהלחיצה הארוכה נקלטה */
+        /* טבעת שמאשרת שהלחיצה הארוכה נקלטה.
+           ההשהיה שב-.go היא שומר הסף: הטבעת נדלקת ב-touchstart כמו קודם,
+           אבל מצייָרת רק אחרי 0.2 שניות של אצבע דרוכה במקום. הקשה רגילה
+           (כ-0.1 שנייה) וגלילה מבטלות את הגֶסטה הרבה לפני כן, והטבעת
+           לא מגיעה לצייר את עצמה כלל — אין fill-mode אחורה, ולכן בזמן
+           ההשהיה היא נשארת בשקיפות 0 של מצב הבסיס. */
         .press-ring {
             position: fixed;
             width: 58px; height: 58px;
@@ -1558,7 +1590,9 @@
             z-index: 2550;
             transform: translate(-50%, -50%) scale(0.4);
         }
-        .press-ring.go { animation: pressRing 0.62s linear forwards; }
+        /* 0.2s השהיה + 0.42s ריצה = 0.62s — הטבעת עדיין נסגרת בדיוק
+           כשהגיליון נפתח, בלי לגעת בתזמון הגֶסטה עצמה (600ms). */
+        .press-ring.go { animation: pressRing 0.42s linear 0.2s forwards; }
 
         @keyframes pressRing {
             0%   { opacity: 0.9; transform: translate(-50%, -50%) scale(0.4); }
