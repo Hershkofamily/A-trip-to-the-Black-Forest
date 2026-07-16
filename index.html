@@ -1426,7 +1426,10 @@
             text-transform: uppercase;
             opacity: 0.45;
             pointer-events: none;
-            animation: swipeNudge 2.8s ease-in-out infinite;
+            /* שלוש תנודות בטעינה ואז מנוחה. אנימציה אינסופית כאן התנגשה
+               עם החץ המקפץ שמתחתיה — שני צירים בקצבים שלא מסתנכרנים
+               גרמו לדף השער להרגיש רועד. */
+            animation: swipeNudge 2.8s ease-in-out 3;
             transition: opacity 0.4s ease;
         }
 
@@ -2841,7 +2844,9 @@
             if (!user) return;
             uid = user.uid;
             ready = true;
-            if (me) writePresence();
+            // נרשמים לנוכחות מיד, גם לפני שהוזן שם — אחרת המונה מציג
+            // "0 מחוברים" בזמן שאתם עצמכם עומדים מולו.
+            writePresence();
 
             onValue(ref(db, 'lists'), snap => {
                 lists = snap.val() || {};
