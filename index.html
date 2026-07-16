@@ -1109,6 +1109,162 @@
             margin-bottom: 10px;
             letter-spacing: 1px;
         }
+
+        /* מגירת המצב הלא מקוון - נחשפת רק בגלילה מעבר לתחתית העמוד */
+        .offline-drawer {
+            max-height: 0;
+            overflow: hidden;
+            background: #070707;
+            border-top: 1px solid transparent;
+            transition: max-height 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+                        border-color 0.85s ease;
+        }
+
+        .offline-drawer.revealed {
+            max-height: 320px;
+            border-top-color: rgba(197, 160, 89, 0.18);
+        }
+
+        .offline-inner {
+            max-width: 520px;
+            margin: 0 auto;
+            padding: 32px 24px 38px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(12px);
+            transition: opacity 0.6s ease 0.25s, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.25s;
+        }
+
+        .offline-drawer.revealed .offline-inner {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .offline-orn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            color: var(--luxury-gold);
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+
+        .offline-orn span {
+            width: 40px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--luxury-gold), transparent);
+        }
+
+        .offline-label {
+            font-family: 'Cinzel', serif;
+            font-size: 0.68rem;
+            letter-spacing: 0.32em;
+            color: var(--luxury-gold);
+            text-transform: uppercase;
+            margin-bottom: 14px;
+        }
+
+        .offline-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            font-size: 0.88rem;
+            color: #b9bdb7;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(197, 160, 89, 0.16);
+            border-radius: 999px;
+            padding: 8px 18px;
+            margin-bottom: 18px;
+        }
+
+        .offline-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #4a8a5c;
+            flex-shrink: 0;
+            box-shadow: 0 0 0 3px rgba(74, 138, 92, 0.16);
+        }
+
+        .offline-dot.off {
+            background: #6d716c;
+            box-shadow: none;
+        }
+
+        .offline-note {
+            font-size: 0.76rem;
+            color: #6e736d;
+            line-height: 1.65;
+            margin-top: 16px;
+            max-width: 42ch;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-wipe {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: inherit;
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.2px;
+            color: var(--luxury-gold);
+            background: transparent;
+            border: 1px solid rgba(197, 160, 89, 0.4);
+            border-radius: 999px;
+            padding: 10px 22px;
+            cursor: pointer;
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .btn-wipe:disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+        }
+
+        @media (hover: hover) and (pointer: fine) {
+            .btn-wipe:not(:disabled):hover {
+                background: rgba(178, 58, 44, 0.14);
+                border-color: #b2483a;
+                color: #e0897c;
+                transform: translateY(-2px);
+            }
+        }
+
+        .btn-wipe:focus-visible {
+            outline: 2px solid var(--luxury-gold);
+            outline-offset: 3px;
+        }
+
+        /* רמז עדין שמופיע כשמגיעים לתחתית - מזמין לגלול עוד.
+           הגובה קבוע תמיד ורק השקיפות משתנה: אילו הרמז היה מאריך את
+           העמוד בהופעתו, "הגעת לתחתית" היה מתבטל מיד והוא היה מהבהב. */
+        .offline-hint {
+            height: 38px;
+            line-height: 38px;
+            text-align: center;
+            font-size: 0.62rem;
+            letter-spacing: 0.28em;
+            font-family: 'Cinzel', serif;
+            text-transform: uppercase;
+            color: var(--luxury-gold);
+            background: var(--matte-black);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.55s ease;
+        }
+
+        .offline-hint.show {
+            opacity: 0.34;
+        }
+
+        @media (max-width: 480px) {
+            .offline-inner { padding: 26px 20px 32px; }
+            .offline-status { font-size: 0.8rem; padding: 7px 14px; }
+        }
     </style>
 </head>
 <body>
@@ -1842,6 +1998,35 @@
         <div>נבנה במיוחד עבור חופשה משפחתית בלתי נשכחת</div>
     </footer>
 
+    <div id="offlineHint" class="offline-hint">גללו עוד ⌄</div>
+
+    <div id="offlineDrawer" class="offline-drawer">
+        <div class="offline-inner">
+            <div class="offline-orn" aria-hidden="true">
+                <span></span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0 L15 12 L12 24 L9 12 Z"/></svg>
+                <span></span>
+            </div>
+            <div class="offline-label">מצב לא מקוון</div>
+            <div id="offlineStatus" class="offline-status">
+                <span id="offlineDot" class="offline-dot off"></span>
+                <span id="offlineStatusText">בודק…</span>
+            </div>
+            <div>
+                <button id="btnWipe" class="btn-wipe" onclick="wipeOffline()" disabled>
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="3 6 5 6 21 6"/>
+                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                    </svg>
+                    <span id="btnWipeText">מחק עותק לא מקוון</span>
+                </button>
+            </div>
+            <div class="offline-note">
+                העותק נמחק מעצמו אחרי הטיסה חזרה ב-26.8. הכפתור כאן רק אם תרצו להקדים.
+            </div>
+        </div>
+    </div>
+
     <script>
         function resetVH() {
             let vh = window.innerHeight * 0.01;
@@ -1850,11 +2035,11 @@
         window.addEventListener('resize', resetVH);
         window.addEventListener('DOMContentLoaded', resetVH);
 
-        // מצב כהה - החלת ההעדפה השמורה מוקדם כדי למנוע הבזק לבן
+        // מצב כהה - ברירת המחדל היא תמיד בהיר.
+        // מצב כהה נטען רק אם המשתמש בחר בו בעצמו בביקור קודם.
         (function() {
             try {
-                const saved = localStorage.getItem('bf-theme');
-                if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                if (localStorage.getItem('bf-theme') === 'dark') {
                     document.documentElement.setAttribute('data-theme', 'dark');
                 }
             } catch (e) {}
@@ -1947,6 +2132,157 @@
             if (!tick()) {
                 setInterval(tick, 1000);
             }
+        })();
+
+        /* ==========================================================
+           מצב לא מקוון — רישום, מצב, מחיקה, וחשיפה בגלילה
+           ========================================================== */
+
+        // רישום ה-Service Worker. עובד רק דרך https (גיטהאב) או localhost —
+        // בפתיחת הקובץ ישירות מהמחשב הדפדפן חוסם אותו, וזה תקין.
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(refreshOfflineStatus)
+                    .catch(() => refreshOfflineStatus());
+            });
+
+            navigator.serviceWorker.addEventListener('message', e => {
+                if (e.data && e.data.type === 'WIPED') refreshOfflineStatus();
+            });
+        }
+
+        async function refreshOfflineStatus() {
+            const dot = document.getElementById('offlineDot');
+            const text = document.getElementById('offlineStatusText');
+            const btn = document.getElementById('btnWipe');
+            if (!dot || !text || !btn) return;
+
+            if (!('serviceWorker' in navigator) || !('caches' in window)) {
+                text.textContent = 'לא נתמך בדפדפן הזה';
+                dot.classList.add('off');
+                btn.disabled = true;
+                return;
+            }
+
+            if (location.protocol === 'file:') {
+                text.textContent = 'זמין רק כשהאתר באוויר';
+                dot.classList.add('off');
+                btn.disabled = true;
+                return;
+            }
+
+            const regs = await navigator.serviceWorker.getRegistrations();
+            const keys = await caches.keys();
+
+            if (!regs.length || !keys.length) {
+                text.textContent = 'לא שמור במכשיר';
+                dot.classList.add('off');
+                btn.disabled = true;
+                return;
+            }
+
+            // חישוב הנפח התפוס בפועל
+            let size = '';
+            try {
+                if (navigator.storage && navigator.storage.estimate) {
+                    const est = await navigator.storage.estimate();
+                    if (est.usage) size = ' · ' + (est.usage / 1048576).toFixed(1) + ' מגה';
+                }
+            } catch (e) {}
+
+            text.textContent = 'שמור במכשיר — יעבוד בלי רשת' + size;
+            dot.classList.remove('off');
+            btn.disabled = false;
+        }
+
+        async function wipeOffline() {
+            const btn = document.getElementById('btnWipe');
+            const label = document.getElementById('btnWipeText');
+            btn.disabled = true;
+            label.textContent = 'מוחק…';
+
+            try {
+                const keys = await caches.keys();
+                await Promise.all(keys.map(k => caches.delete(k)));
+
+                const regs = await navigator.serviceWorker.getRegistrations();
+                await Promise.all(regs.map(r => r.unregister()));
+            } catch (e) {}
+
+            label.textContent = 'נמחק ✓';
+            setTimeout(() => {
+                label.textContent = 'מחק עותק לא מקוון';
+                refreshOfflineStatus();
+            }, 2200);
+        }
+
+        // חשיפת המגירה בגלילה מעבר לתחתית העמוד
+        (function initOfflineDrawer() {
+            const drawer = document.getElementById('offlineDrawer');
+            const hint = document.getElementById('offlineHint');
+            if (!drawer || !hint) return;
+
+            const THRESHOLD = 110;   // כמה צריך "למשוך" מעבר לתחתית
+            let pull = 0;
+            let touchY = 0;
+
+            function atBottom() {
+                return (window.innerHeight + window.scrollY) >=
+                       (document.documentElement.scrollHeight - 3);
+            }
+
+            function isOpen() {
+                return drawer.classList.contains('revealed');
+            }
+
+            function reveal() {
+                if (isOpen()) return;
+                drawer.classList.add('revealed');
+                hint.classList.remove('show');
+                refreshOfflineStatus();
+                setTimeout(() => {
+                    drawer.scrollIntoView({ behavior: 'smooth', block: 'end' });
+                }, 120);
+            }
+
+            // רמז עדין בתחתית שמזמין לגלול עוד
+            window.addEventListener('scroll', () => {
+                if (isOpen()) return;
+                hint.classList.toggle('show', atBottom());
+            }, { passive: true });
+
+            // עכבר / טראקפד
+            window.addEventListener('wheel', e => {
+                if (isOpen()) return;
+                if (atBottom() && e.deltaY > 0) {
+                    pull += e.deltaY;
+                    if (pull > THRESHOLD) reveal();
+                } else {
+                    pull = 0;
+                }
+            }, { passive: true });
+
+            // מגע
+            window.addEventListener('touchstart', e => {
+                touchY = e.touches[0].clientY;
+                pull = 0;
+            }, { passive: true });
+
+            window.addEventListener('touchmove', e => {
+                if (isOpen()) return;
+                const delta = touchY - e.touches[0].clientY; // חיובי = מושכים מעלה
+                if (atBottom() && delta > 0) {
+                    pull = delta;
+                    if (pull > THRESHOLD) reveal();
+                }
+            }, { passive: true });
+
+            // מקלדת: End או PageDown בתחתית
+            window.addEventListener('keydown', e => {
+                if (isOpen()) return;
+                if ((e.key === 'End' || e.key === 'PageDown') && atBottom()) reveal();
+            });
         })();
 
         document.addEventListener("DOMContentLoaded", function() {
