@@ -1009,13 +1009,30 @@
             gap: 10px;
             z-index: 900;
             opacity: 0.55;
+            /* האשכול מעוגן תמיד לשמאל. כל התנועה האופקית — הגרירה לפינה
+               הימנית והנדנוד בזמן גלילה — חיה במשתנה --dock-x, כדי ששתי
+               התנועות יורכבו זו על זו ב-calc ולא יידרסו הדדית. 0 = שמאל. */
+            --dock-x: 0px;
+            transform: translateX(var(--dock-x));
             transition: opacity 0.4s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            /* בלי זה, גרירה אנכית קלה על הכפתורים הייתה מגלגלת את העמוד
+               וקוטעת את הגרירה. */
+            touch-action: none;
         }
 
-        /* התפוגגות בזמן גלילה פעילה - חוזרים למראה מלא כשהמשתמש עוצר */
+        /* בזמן גרירה: נצמד לאצבע מיידית (בלי מעבר טרנספורם), בולט מעט
+           וכהה לגמרי כמשוב. ה-scale מורכב על אותו --dock-x. */
+        .floating-controls.dragging {
+            transition: opacity 0.25s ease;
+            transform: translateX(var(--dock-x)) scale(1.06);
+            opacity: 1;
+        }
+
+        /* התפוגגות בזמן גלילה פעילה - חוזרים למראה מלא כשהמשתמש עוצר.
+           ה-6px מורכבים על מיקום ההצמדה כדי שהנדנוד יעבוד בשתי הפינות. */
         body.is-scrolling .floating-controls {
             opacity: 0.15;
-            transform: translateX(-6px);
+            transform: translateX(calc(var(--dock-x) - 6px));
         }
 
         .floating-btn {
@@ -1043,6 +1060,8 @@
             padding: 0;
             font-family: inherit;
             -webkit-tap-highlight-color: transparent;
+            /* המסך לא זז כשמתחילים גרירה על הכפתור עצמו */
+            touch-action: none;
         }
 
         [data-theme="dark"] .floating-btn {
@@ -3403,7 +3422,7 @@
             function blocked(target) {
                 if (!target || !target.closest) return true;
                 if (target.closest('a, button, input, textarea, select')) return true;
-                if (target.closest('.lists-panel, .layout-sheet, .gemini-modal-card, .offline-drawer')) return true;
+                if (target.closest('.lists-panel, .layout-sheet, .gemini-modal-card, .offline-drawer, .floating-controls')) return true;
                 if (sheetOpen()) return true;
                 if (document.getElementById('listsPanel').classList.contains('open')) return true;
                 if (document.getElementById('geminiModal').classList.contains('active')) return true;
@@ -3441,6 +3460,98 @@
             document.addEventListener('mousemove', e => move(e.clientX, e.clientY));
             window.addEventListener('mouseup', cancel);
             window.addEventListener('scroll', cancel, { passive: true });
+        })();
+
+        /* ==========================================================
+           גרירת האשכול הצף בין הפינות התחתונות
+           האשכול מעוגן לשמאל ב-CSS, וכל המיקום חי במשתנה --dock-x: 0
+           בשמאל, היסט חיובי בימין. הצד נשמר ב-localStorage['bf-dock'].
+           משתמש ב-Pointer Events (נתיב אחד לעכבר ולמגע) עם לכידת מצביע,
+           כדי שהגרירה תמשיך גם אם האצבע יוצאת מהכפתור.
+           ========================================================== */
+        (function initDockDrag() {
+            const controls = document.querySelector('.floating-controls');
+            if (!controls || !window.PointerEvent) return;
+
+            const SLOP = 6;
+            const gap = () => window.matchMedia('(max-width: 480px)').matches ? 14 : 22;
+            // clientWidth ולא innerWidth: innerWidth כולל את רוחב פס
+            // הגלילה, אבל מיקום fixed לא — הפער הזה הצמיד את הפינה הימנית
+            // קרוב מדי לקצה ויצר אי-סימטריה מול השוליים השמאליים.
+            const vw = () => document.documentElement.clientWidth;
+            // ההיסט שמצמיד לפינה הימנית, נמדד בכל פעם מחדש — רוחב המסך
+            // משתנה בסיבוב מכשיר ובשינוי גודל חלון.
+            const rightX = () => vw() - controls.offsetWidth - gap() * 2;
+            const setX = px => controls.style.setProperty('--dock-x', px + 'px');
+            const targetX = () => side === 'right' ? rightX() : 0;
+
+            let side = 'left';
+            try { if (localStorage.getItem('bf-dock') === 'right') side = 'right'; } catch (e) {}
+
+            // החלת הצד השמור מיידית, בלי אנימציית פתיחה
+            function settle() {
+                controls.style.transition = 'none';
+                setX(targetX());
+                void controls.offsetWidth;      // reflow נועל את המיקום
+                controls.style.transition = '';
+            }
+            settle();
+            // הסקריפט רץ בסוף ה-body, ורוחב התצוגה לא תמיד סופי ברגע הזה
+            // (סרגל כתובת במובייל, פריסה שעדיין נרגעת). הצמדה לימין שחושבה
+            // מרוחב לא נכון מקפיצה את האשכול אל מחוץ למסך. לכן מיישבים שוב
+            // אחרי שהפריסה מתייצבת — פעם כשה-DOM מוכן ופעם אחרי טעינת הכל.
+            window.addEventListener('DOMContentLoaded', settle);
+            window.addEventListener('load', settle);
+
+            let dragging = false, moved = false, sx = 0, base = 0;
+
+            controls.addEventListener('pointerdown', e => {
+                dragging = true;
+                moved = false;
+                sx = e.clientX;
+                base = targetX();
+                controls.style.transition = 'none';   // מעקב 1:1 אחרי האצבע
+                // לכידה כדי שהגרירה תימשך גם אם האצבע יוצאת מהכפתור.
+                // עטוף — בדפדפנים מסוימים היא זורקת אם המצביע כבר שוחרר.
+                try { controls.setPointerCapture(e.pointerId); } catch (err) {}
+            });
+
+            controls.addEventListener('pointermove', e => {
+                if (!dragging) return;
+                const dx = e.clientX - sx;
+                if (!moved && Math.abs(dx) < SLOP) return;   // עדיין הקשה, לא גרירה
+                moved = true;
+                controls.classList.add('dragging');
+                setX(base + dx);
+            });
+
+            function endDrag() {
+                if (!dragging) return;
+                dragging = false;
+                controls.style.transition = '';            // מחזיר את מעבר ההצמדה הרך
+                controls.classList.remove('dragging');
+                if (!moved) { setX(base); return; }         // הקשה בלבד — הכפתור יפעל
+
+                // הצד נקבע לפי מרכז האשכול ביחס לאמצע המסך
+                const r = controls.getBoundingClientRect();
+                side = (r.left + r.width / 2) > vw() / 2 ? 'right' : 'left';
+                setX(targetX());
+                try { localStorage.setItem('bf-dock', side); } catch (e) {}
+            }
+
+            controls.addEventListener('pointerup', endDrag);
+            controls.addEventListener('pointercancel', endDrag);
+
+            // אחרי גרירה, שחרור מעל כפתור לא אמור להפעיל אותו (החלפת ערכה
+            // או קפיצה למעלה). נתפס בשלב הלכידה לפני שה-onclick של הכפתור רץ.
+            controls.addEventListener('click', e => {
+                if (moved) { e.stopPropagation(); e.preventDefault(); moved = false; }
+            }, true);
+
+            // שמירה על ההצמדה לפינה כשגודל המסך משתנה
+            window.addEventListener('resize', () => {
+                if (!dragging) settle();
+            });
         })();
 
         markLayoutChoice();
