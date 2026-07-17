@@ -1378,13 +1378,18 @@
         }
 
         /* --- סרגל החזרה בדף היום --- */
-        #dayBackBar { display: none; }
+        /* scroll-margin-top = גובה הנאב הדביק (70) ועוד אוויר. בלעדיו
+           הגלילה אל היום הייתה עוצרת עם הסרגל מוחבא מאחורי הנאב. */
+        #dayBackBar { display: none; scroll-margin-top: 86px; }
 
         [data-layout="calendar"][data-day-open] #dayBackBar {
             display: flex;
             align-items: center;
             gap: 10px;
             margin-bottom: 20px;
+            /* ראש דף היום, ואליו גוללים בכל פתיחת יום: 70px נאב + 16px אוויר.
+               כאן ולא ב-JS, כדי שהמספר יחיה ליד הפריסה שהוא מתאר. */
+            scroll-margin-top: 86px;
         }
 
         .back-btn {
@@ -2204,7 +2209,7 @@
                             <div class="item-title">נחיתה בציריך (Zürich)</div>
                             <div class="item-desc">נוחתים בשווייץ, אוספים את רכב המנהלים השכור ויוצאים בנסיעה מענגת לכיוון צפון.</div>
                             <div class="item-actions">
-                                <a href="https://www.google.com/maps/search/?api=1&query=Zurich+Airport" target="_blank" class="btn-action btn-nav"><svg class="btn-icon"><use href="#icon-pin"/></svg> ניווט ליעד</a>
+                                <a href="https://www.google.com/maps/search/?api=1&query=Sixt+Zurich+Airport" target="_blank" class="btn-action btn-nav"><svg class="btn-icon"><use href="#icon-pin"/></svg> ניווט להשכרת הרכב</a>
                                 <button onclick="askGemini('נחיתה בציריך (Zürich)')" class="btn-action btn-explain"><svg class="btn-icon"><use href="#icon-sparkle"/></svg> לא הבנתי</button>
                                 <button id="btn-info-d1-1" onclick="toggleDrawer('d1-1')" class="btn-action btn-info"><svg class="btn-icon"><use href="#icon-info"/></svg> מידע נוסף</button>
                             </div>
@@ -3277,7 +3282,17 @@
             document.getElementById('dayPrev').disabled = n <= 1;
             document.getElementById('dayNext').disabled = n >= LAST_DAY;
 
-            window.scrollTo({ top: 0, behavior: 'auto' });
+            // ראש דף היום הוא סרגל החזרה — לא ראש המסמך. גלילה ל-0 הייתה
+            // זורקת חזרה לדף השער בכל מעבר יום, וכל בחירת יום התחילה
+            // בגלילה מיותרת דרך השער. השער נשאר נקודת הפתיחה של מעבר
+            // פריסה בלבד (setLayout), ששם הוא באמת במקומו.
+            // 'instant' ולא 'auto'. זו מלכודת: 'auto' לא אומר "מיידי" אלא
+            // "מה שה-CSS אומר", וה-CSS כאן אומר scroll-behavior: smooth
+            // (ב-<html>). נמדד בפועל: עם 'auto' הגלילה לא הגיעה ליעד כלל,
+            // scrollY נשאר 0 והשער נשאר על המסך — כלומר בדיוק הבאג שהיא
+            // אמורה לפתור. עם 'instant' הסרגל נוחת על 86px, מתחת לנאב.
+            document.getElementById('dayBackBar')
+                .scrollIntoView({ block: 'start', behavior: 'instant' });
 
             if (opts.fromHistory) return;
             // מעבר בין ימים מחליף את הרשומה במקום להוסיף, כדי שכפתור
